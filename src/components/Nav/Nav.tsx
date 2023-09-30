@@ -1,7 +1,7 @@
 "use client"
 
 import { Link } from "@chakra-ui/next-js"
-import { Flex, Text } from "@chakra-ui/react"
+import { Flex, HStack, Text } from "@chakra-ui/react"
 import config from "../../config/siteConfig"
 import { Layout } from "../Layout/Layout"
 
@@ -24,13 +24,13 @@ export function Nav() {
                     <Text fontSize={20} fontWeight={700} color="purple.500">
                         BookHaven
                     </Text>
-                    <Flex>
+                    <HStack spacing={4}>
                         {config.nav.links.map(({ title, href }) => (
-                            <Link href={href} mx={4} key={title}>
+                            <Link href={href} key={title}>
                                 {title}
                             </Link>
                         ))}
-                    </Flex>
+                    </HStack>
                 </Flex>
             </Layout>
         </Flex>
