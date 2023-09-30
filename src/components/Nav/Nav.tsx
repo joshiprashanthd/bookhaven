@@ -14,6 +14,7 @@ export function Nav() {
                     justify="space-between"
                     minW="full"
                     align="center"
+                    h="12"
                     my={4}
                     py={2}
                     px={4}
@@ -21,7 +22,7 @@ export function Nav() {
                     border="gray.400"
                     borderRadius={16}
                 >
-                    <Text fontSize={24} fontWeight={700}>
+                    <Text fontSize={20} fontWeight={700}>
                         BookHaven
                     </Text>
                     <Flex>
