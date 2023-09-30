@@ -17,6 +17,7 @@ export const Filter = ({ name, options }: { name: string; options: string[] }) =
             <MenuList borderRadius={16} border="gray.400" bg="gray.100">
                 {options.map((item) => (
                     <MenuItem
+                        key={item}
                         onClick={() => setSelected(item)}
                         bg="gray.100"
                         _hover={{
