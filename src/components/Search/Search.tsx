@@ -2,12 +2,11 @@
 import { Flex, HStack, IconButton, Input } from "@chakra-ui/react"
 import { Layout } from "../Layout/Layout"
 import { SearchIcon } from "@/icons/SearchIcon"
-import { Filter } from "../Filter/Filter"
 
 export const Search = () => {
     return (
         <Layout>
-            <HStack minW="full" h="12" overflow="hidden" spacing="4">
+            <HStack minW="full" h="10" overflow="hidden" spacing="4">
                 <Flex
                     justify="space-between"
                     h="full"
@@ -16,9 +15,8 @@ export const Search = () => {
                     my={4}
                     py={2}
                     px={4}
-                    bg="gray.100"
-                    border="gray.400"
-                    borderRadius={16}
+                    bg="gray.50"
+                    borderRadius={8}
                 >
                     <Input
                         p={0}
@@ -34,15 +32,8 @@ export const Search = () => {
                             border: "none",
                         }}
                     />
-                    <IconButton aria-label="search-button" icon={<SearchIcon />} />
+                    <IconButton aria-label="search-button" icon={<SearchIcon />} bg="none" />
                 </Flex>
-                <HStack spacing="4">
-                    <Filter name="Year" options={["2012", "2013", "2014", "2015"]} />
-                    <Filter
-                        name="Genre"
-                        options={["SciFi", "Horror", "Romance", "Action", "Comic"]}
-                    />
-                </HStack>
             </HStack>
         </Layout>
     )
