@@ -4,6 +4,7 @@ import { Link } from "@chakra-ui/next-js"
 import { Flex, HStack, Text } from "@chakra-ui/react"
 import config from "../../config/siteConfig"
 import { Layout } from "../Layout/Layout"
+import { LoginButton } from "../LoginButton/LoginButton"
 
 export function Nav() {
     return (
@@ -31,6 +32,7 @@ export function Nav() {
                             </Link>
                         ))}
                     </HStack>
+                    <LoginButton />
                 </Flex>
             </Layout>
         </Flex>
