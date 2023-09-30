@@ -5,6 +5,7 @@ import { Flex, HStack, Text } from "@chakra-ui/react"
 import config from "../../config/siteConfig"
 import { Layout } from "../Layout/Layout"
 import { LoginButton } from "../LoginButton/LoginButton"
+import { Search } from "../Search/Search"
 
 export function Nav() {
     return (
@@ -14,7 +15,7 @@ export function Nav() {
                     justify="space-between"
                     minW="full"
                     align="center"
-                    h="12"
+                    h="16"
                     my={4}
                     py={2}
                     px={4}
@@ -25,14 +26,17 @@ export function Nav() {
                     <Text fontSize={20} fontWeight={700} color="purple.500">
                         BookHaven
                     </Text>
-                    <HStack spacing={4}>
-                        {config.nav.links.map(({ title, href }) => (
-                            <Link href={href} key={title}>
-                                {title}
-                            </Link>
-                        ))}
-                    </HStack>
-                    <LoginButton />
+                    <Search />
+                    <Flex>
+                        <HStack spacing={4}>
+                            {config.nav.links.map(({ title, href }) => (
+                                <Link href={href} key={title}>
+                                    {title}
+                                </Link>
+                            ))}
+                        </HStack>
+                        <LoginButton />
+                    </Flex>
                 </Flex>
             </Layout>
         </Flex>
