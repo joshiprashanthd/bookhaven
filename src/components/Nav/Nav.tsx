@@ -1,8 +1,7 @@
 "use client"
 
-import { Flex, Text } from "@chakra-ui/react"
 import { Link } from "@chakra-ui/next-js"
-import React from "react"
+import { Flex, Text } from "@chakra-ui/react"
 import config from "../../config/siteConfig"
 import { Layout } from "../Layout/Layout"
 
@@ -22,7 +21,7 @@ export function Nav() {
                     border="gray.400"
                     borderRadius={16}
                 >
-                    <Text fontSize={20} fontWeight={700}>
+                    <Text fontSize={20} fontWeight={700} color="purple.500">
                         BookHaven
                     </Text>
                     <Flex>
