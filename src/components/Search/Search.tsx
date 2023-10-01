@@ -18,8 +18,8 @@ export const Search = () => {
             <IconButton
                 aria-label="search-button"
                 icon={<SearchIcon />}
-                bg="none"
-                borderRadius={8}
+                borderRightRadius={8}
+                borderLeftRadius={0}
             />
         </Flex>
     )
