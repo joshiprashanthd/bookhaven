@@ -1,33 +1,15 @@
 "use client"
 
-import { ChevronDown } from "@/icons/ChevronDown"
-import { Menu, MenuButton, Button, MenuList, MenuItem } from "@chakra-ui/react"
-import React, { useEffect, useState } from "react"
+import { VStack } from "@chakra-ui/react"
+import React from "react"
+import { YearFilter } from "./YearFilter"
+import { GenreFilter } from "./GenreFilter"
 
-export const Filter = ({ name, options }: { name: string; options: string[] }) => {
-    const [selected, setSelected] = useState<string>(name)
-
-    useEffect(() => {}, [selected])
-
+export const Filter = () => {
     return (
-        <Menu>
-            <MenuButton as={Button} borderRadius={16} rightIcon={<ChevronDown />} h="12">
-                {selected}
-            </MenuButton>
-            <MenuList borderRadius={16} border="gray.400" bg="gray.100">
-                {options.map((item) => (
-                    <MenuItem
-                        key={item}
-                        onClick={() => setSelected(item)}
-                        bg="gray.100"
-                        _hover={{
-                            bg: "gray.50",
-                        }}
-                    >
-                        {item}
-                    </MenuItem>
-                ))}
-            </MenuList>
-        </Menu>
+        <VStack spacing={4} bg="gray.100" borderRadius={16} minW="72" p={4}>
+            <YearFilter />
+            <GenreFilter />
+        </VStack>
     )
 }
