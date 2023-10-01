@@ -1,27 +1,39 @@
-import { defineStyleConfig } from "@chakra-ui/react";
+import { defineStyleConfig } from "@chakra-ui/react"
 
 export const Input = defineStyleConfig({
     baseStyle: {
-        borderRadius: 8,
+        field: {
+            borderRadius: 8,
+            p: 2,
+        },
     },
     sizes: {
         normal: {
-            fontSize: 12
-        }
+            field: {
+                fontSize: 14,
+            },
+        },
+        big: {
+            field: {
+                fontSize: 16,
+            },
+        },
     },
     variants: {
         filled: {
-            backgroundColor: "gray.50",
-            _hover: {
-                backgroundColor: "gray.100"
+            field: {
+                backgroundColor: "gray.50",
+                _focus: {
+                    backgroundColor: "white",
+                },
+                _placeholder: {
+                    color: "gray.500",
+                },
             },
-            _placeholder: {
-                color: "gray.200"
-            }
-        }
+        },
     },
     defaultProps: {
         size: "normal",
-        variant: "filled"
-    }
+        variant: "filled",
+    },
 })
