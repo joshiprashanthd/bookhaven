@@ -4,18 +4,21 @@ export const Input = defineStyleConfig({
     baseStyle: {
         field: {
             borderRadius: 8,
-            p: 2,
         },
     },
     sizes: {
         normal: {
             field: {
+                h: 12,
                 fontSize: 14,
+                p: 4,
             },
         },
         big: {
             field: {
+                h: 12,
                 fontSize: 16,
+                p: 4,
             },
         },
     },
