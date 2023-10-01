@@ -27,7 +27,24 @@ export const Input = defineStyleConfig({
                     backgroundColor: "white",
                 },
                 _placeholder: {
-                    color: "gray.500",
+                    color: "gray.800",
+                },
+            },
+        },
+        unstyled: {
+            field: {
+                p: 0,
+                border: "none",
+                _placeholder: {
+                    color: "gray.800",
+                },
+                _focus: {
+                    border: "none",
+                    bg: "none",
+                },
+                _focusVisible: {
+                    bg: "none",
+                    border: "none",
                 },
             },
         },
