@@ -1,3 +1,4 @@
+import { ChevronDown } from "@/icons/ChevronDown"
 import {
     Button,
     HStack,
@@ -14,12 +15,12 @@ export const YearFilter = () => {
     const [range, setRange] = useState([2000, 2000])
 
     useEffect(() => {
-        if (range[0] >= range[1]) setRange(range => [range[0], range[0]])
+        if (range[0] >= range[1]) setRange((range) => [range[0], range[0]])
     }, [range[0]])
 
     return (
         <VStack w="full" align="start">
-            <Text>Select year range</Text>
+            <Text fontSize="sm">Select year range</Text>
             <HStack w="full">
                 <YearMenu
                     selected={range[0]}
@@ -27,7 +28,7 @@ export const YearFilter = () => {
                     max={2023}
                     onChange={(select) => setRange((range) => [select, range[1]])}
                 />
-                <Text>To</Text>
+                <Text fontSize="sm">To</Text>
                 <YearMenu
                     selected={range[1]}
                     min={range[0]}
@@ -57,7 +58,7 @@ const YearMenu = ({
 
     return (
         <Menu>
-            <MenuButton as={Button} w="full" bg="gray.50" borderRadius={8}>
+            <MenuButton as={Button} w="full" rightIcon={<ChevronDown />}>
                 {selected}
             </MenuButton>
             <MenuList maxH="64" overflow="scroll" borderRadius={8} w="full">
