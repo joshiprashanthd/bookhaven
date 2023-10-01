@@ -1,13 +1,8 @@
 import {
     Modal,
-    ModalOverlay,
-    ModalContent,
-    ModalHeader,
     ModalCloseButton,
-    ModalBody,
-    ModalFooter,
-    Button,
-    useDisclosure,
+    ModalContent,
+    ModalOverlay
 } from "@chakra-ui/react"
 import { useState } from "react"
 import { LoginBody } from "./LoginBody"
