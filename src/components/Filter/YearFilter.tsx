@@ -8,10 +8,15 @@ import {
     Text,
     VStack,
 } from "@chakra-ui/react"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 export const YearFilter = () => {
     const [range, setRange] = useState([2000, 2000])
+
+    useEffect(() => {
+        if (range[0] >= range[1]) setRange(range => [range[0], range[0]])
+    }, [range[0]])
+
     return (
         <VStack w="full" align="start">
             <Text>Select year range</Text>
@@ -24,7 +29,7 @@ export const YearFilter = () => {
                 />
                 <Text>To</Text>
                 <YearMenu
-                    selected={range[1] >= range[0] ? range[1] : range[0]}
+                    selected={range[1]}
                     min={range[0]}
                     max={2023}
                     onChange={(select) => setRange((range) => [range[0], select])}
