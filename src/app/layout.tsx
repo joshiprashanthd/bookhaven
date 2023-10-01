@@ -1,9 +1,10 @@
+import { Filter } from "@/components/Filter/Filter"
+import { Layout } from "@/components/Layout/Layout"
+import { Nav } from "@/components/Nav/Nav"
+import { Flex } from "@chakra-ui/react"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import { Providers } from "./providers"
-import { Layout } from "@/components/Layout/Layout"
-import { Nav } from "@/components/Nav/Nav"
-import { Search } from "@/components/Search/Search"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -18,7 +19,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <body className={inter.className}>
                 <Providers>
                     <Nav />
-                    <Layout>{children}</Layout>
+                    <Layout>
+                        <Flex w="full">
+                            <Filter />
+                            <Flex flex="1">{children}</Flex>
+                        </Flex>
+                    </Layout>
                 </Providers>
             </body>
         </html>
