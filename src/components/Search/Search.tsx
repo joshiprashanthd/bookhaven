@@ -18,6 +18,7 @@ export const Search = () => {
             <IconButton
                 h={10}
                 w={12}
+                variant="tertiary"
                 aria-label="search-button"
                 icon={<SearchIcon />}
                 borderRightRadius={8}
