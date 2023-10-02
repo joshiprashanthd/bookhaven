@@ -16,6 +16,8 @@ export const Search = () => {
         >
             <Input variant="unstyled" placeholder="Search" />
             <IconButton
+                h={10}
+                w={12}
                 aria-label="search-button"
                 icon={<SearchIcon />}
                 borderRightRadius={8}
