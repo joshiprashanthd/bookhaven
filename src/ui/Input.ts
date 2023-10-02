@@ -9,7 +9,7 @@ export const Input = defineStyleConfig({
     sizes: {
         normal: {
             field: {
-                h: 12,
+                h: 10,
                 fontSize: 14,
                 p: 4,
             },
