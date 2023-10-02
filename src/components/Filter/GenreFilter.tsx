@@ -11,7 +11,7 @@ export const GenreFilter = () => {
         <VStack align="start" w="full">
             <Text fontSize="sm">Select genre</Text>
             <Menu>
-                <MenuButton w="full" as={Button} rightIcon={<ChevronDown />}>
+                <MenuButton w="full" as={Button} rightIcon={<ChevronDown />} variant="tertiary">
                     {selected}
                 </MenuButton>
                 <MenuList>

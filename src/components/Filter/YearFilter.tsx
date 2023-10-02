@@ -58,7 +58,7 @@ const YearMenu = ({
 
     return (
         <Menu>
-            <MenuButton as={Button} w="full" rightIcon={<ChevronDown />}>
+            <MenuButton as={Button} w="full" rightIcon={<ChevronDown />} variant="tertiary">
                 {selected}
             </MenuButton>
             <MenuList maxH="64" overflow="scroll" borderRadius={8} w="full">
