@@ -4,7 +4,7 @@ export const Button = defineStyleConfig({
     baseStyle: {
         borderRadius: 8,
         textTransform: "uppercase",
-        fontWeight: "bold",
+        fontWeight: "semibold",
     },
     sizes: {
         small: {
