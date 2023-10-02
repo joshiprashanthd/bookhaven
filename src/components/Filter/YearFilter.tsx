@@ -20,7 +20,7 @@ export const YearFilter = () => {
 
     return (
         <VStack w="full" align="start">
-            <Text fontSize="sm">Select year range</Text>
+            <Text fontSize="14">Select year range</Text>
             <HStack w="full">
                 <YearMenu
                     selected={range[0]}
