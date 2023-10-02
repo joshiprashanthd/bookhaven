@@ -19,12 +19,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <body className={inter.className}>
                 <Providers>
                     <Nav />
-                    <Layout>
-                        <Flex w="full">
-                            <Filter />
-                            <Flex flex="1">{children}</Flex>
-                        </Flex>
-                    </Layout>
+                    <Layout>{children}</Layout>
                 </Providers>
             </body>
         </html>
