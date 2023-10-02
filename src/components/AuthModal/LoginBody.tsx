@@ -31,7 +31,7 @@ export const LoginBody = ({ setState }: { setState: (state: "login" | "signup") 
             <ModalBody>
                 <VStack spacing={4}>
                     <FormControl w="full">
-                        <FormLabel fontWeight="semibold" mb={1}>
+                        <FormLabel fontWeight="semibold" mb={1} fontSize="14">
                             Email
                         </FormLabel>
                         <Input
@@ -43,7 +43,7 @@ export const LoginBody = ({ setState }: { setState: (state: "login" | "signup") 
                         />
                     </FormControl>
                     <FormControl w="full">
-                        <FormLabel fontWeight="semibold" mb={1}>
+                        <FormLabel fontWeight="semibold" mb={1} fontSize="14">
                             Password
                         </FormLabel>
                         <Input
@@ -67,6 +67,7 @@ export const LoginBody = ({ setState }: { setState: (state: "login" | "signup") 
                     </Link>
                 </Text>
             </ModalBody>
+            <ModalFooter></ModalFooter>
         </>
     )
 }
