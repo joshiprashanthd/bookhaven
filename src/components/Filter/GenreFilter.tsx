@@ -1,11 +1,16 @@
+"use client"
+
 import { ChevronDown } from "@/icons/ChevronDown"
 import { Button, Menu, MenuButton, MenuItem, MenuList, Text, VStack } from "@chakra-ui/react"
-import { useState } from "react"
 
-export const GenreFilter = () => {
-    const options = ["SciFi", "Horror", "Mystery", "Romance", "Adventure", "Kids"]
-    const defaultName = "SciFi"
-    const [selected, setSelected] = useState(defaultName)
+export const GenreFilter = ({
+    genre,
+    setGenre,
+}: {
+    genre: string
+    setGenre: (arg: string) => void
+}) => {
+    const options = ["All", "SciFi", "Horror", "Mystery", "Romance", "Adventure", "Kids"]
 
     return (
         <VStack align="start" w="full">
@@ -19,11 +24,11 @@ export const GenreFilter = () => {
                     textTransform="none"
                     fontWeight="medium"
                 >
-                    {selected}
+                    {genre}
                 </MenuButton>
                 <MenuList>
                     {options.map((item) => (
-                        <MenuItem key={item} onClick={() => setSelected(item)}>
+                        <MenuItem key={item} onClick={() => setGenre(item)}>
                             {item}
                         </MenuItem>
                     ))}
