@@ -1,3 +1,7 @@
-export default function Search() {
-    return <div>Search</div>
+export default function Search({
+    searchParams,
+}: {
+    searchParams: { [key: string]: string | string[] | undefined }
+}) {
+    return <div>Search {searchParams.q}</div>
 }
