@@ -1,3 +1,5 @@
+"use client"
+
 import { ChevronDown } from "@/icons/ChevronDown"
 import {
     Button,
@@ -9,31 +11,37 @@ import {
     Text,
     VStack,
 } from "@chakra-ui/react"
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 
-export const YearFilter = () => {
-    const [range, setRange] = useState([2000, 2000])
-
+export const YearFilter = ({
+    startYear,
+    endYear,
+    setYearRange,
+}: {
+    startYear: number
+    endYear: number
+    setYearRange: (arg1: number, arg2: number) => void
+}) => {
     useEffect(() => {
-        if (range[0] >= range[1]) setRange((range) => [range[0], range[0]])
-    }, [range[0]])
+        if (startYear >= endYear) setYearRange(startYear, startYear)
+    }, [startYear])
 
     return (
         <VStack w="full" align="start">
             <Text fontSize="14">Select year range</Text>
             <HStack w="full">
                 <YearMenu
-                    selected={range[0]}
+                    selected={startYear}
                     min={2000}
                     max={2023}
-                    onChange={(select) => setRange((range) => [select, range[1]])}
+                    onChange={(select) => setYearRange(select, endYear)}
                 />
                 <Text fontSize="sm">To</Text>
                 <YearMenu
-                    selected={range[1]}
-                    min={range[0]}
+                    selected={endYear}
+                    min={startYear}
                     max={2023}
-                    onChange={(select) => setRange((range) => [range[0], select])}
+                    onChange={(select) => setYearRange(startYear, select)}
                 />
             </HStack>
         </VStack>
