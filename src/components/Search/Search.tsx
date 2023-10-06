@@ -2,12 +2,14 @@
 
 import { Flex, IconButton, Input } from "@chakra-ui/react"
 import { SearchIcon } from "@/icons/SearchIcon"
-import { useRouter } from "next/navigation"
+import { useRouter, useSearchParams } from "next/navigation"
 import { useState } from "react"
 
 export const Search = () => {
-    const [query, setQuery] = useState("")
     const router = useRouter()
+    const searchParams = useSearchParams()
+
+    const [query, setQuery] = useState(searchParams.get("q") || "")
 
     const onChangeQuery = (e: React.ChangeEvent<HTMLInputElement>) => {
         e.preventDefault()
