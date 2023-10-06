@@ -19,7 +19,7 @@ export const GenreFilter = ({
                 <MenuButton
                     w="full"
                     as={Button}
-                    rightIcon={<ChevronDown />}
+                    rightIcon={<ChevronDown size={18} />}
                     variant="tertiary"
                     textTransform="none"
                     fontWeight="medium"
