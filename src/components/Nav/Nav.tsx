@@ -1,11 +1,10 @@
 "use client"
 
-import { Link } from "@chakra-ui/next-js"
 import { Flex, HStack, Text } from "@chakra-ui/react"
-import config from "../../config/siteConfig"
 import { Layout } from "../Layout/Layout"
 import { LoginButton } from "../LoginButton/LoginButton"
 import { Search } from "../Search/Search"
+import { NavMenu } from "./NavMenu"
 
 export function Nav() {
     return (
@@ -27,16 +26,10 @@ export function Nav() {
                         BookHaven
                     </Text>
                     <Search />
-                    <Flex>
-                        <HStack spacing={4}>
-                            {config.nav.links.map(({ title, href }) => (
-                                <Link href={href} key={title}>
-                                    {title}
-                                </Link>
-                            ))}
-                        </HStack>
+                    <HStack align="center" spacing={4}>
                         <LoginButton />
-                    </Flex>
+                        <NavMenu />
+                    </HStack>
                 </Flex>
             </Layout>
         </Flex>
