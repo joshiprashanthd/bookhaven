@@ -1,4 +1,4 @@
-export const UserIcon = ({ size }: { size: number }) => {
+export const UserIcon = ({ size = 24 }: { size?: number }) => {
     return (
         <svg
             xmlns="http://www.w3.org/2000/svg"
