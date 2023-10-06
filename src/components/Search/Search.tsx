@@ -14,27 +14,19 @@ export const Search = () => {
         setQuery(e.target.value)
     }
 
+    const onSearch = () => {
+        if (query.length > 0) router.push(`/search?q=${query}`)
+    }
+
     return (
-        <Flex
-            justify="space-between"
-            h="10"
-            align="center"
-            my={4}
-            py={2}
-            pl={4}
-            bg="gray.50"
-            borderRadius={8}
-        >
+        <Flex justify="space-between" h="10" align="center" pl={4} bg="gray.50" borderRadius={8}>
             <Input variant="unstyled" placeholder="Search" onChange={onChangeQuery} />
             <IconButton
-                h={10}
-                w={12}
+                size="icon"
                 variant="tertiary"
                 aria-label="search-button"
                 icon={<SearchIcon />}
-                borderRightRadius={8}
-                borderLeftRadius={0}
-                onClick={() => router.push(`/search?q=${query}`)}
+                onClick={onSearch}
             />
         </Flex>
     )
