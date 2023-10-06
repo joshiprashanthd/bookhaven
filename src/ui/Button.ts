@@ -17,6 +17,11 @@ export const Button = defineStyleConfig({
             p: 4,
             fontSize: 14,
         },
+        icon: {
+            minH: 10,
+            minW: 10,
+            p: 4,
+        },
     },
     variants: {
         primary: {
