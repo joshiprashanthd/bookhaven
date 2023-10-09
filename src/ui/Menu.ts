@@ -12,8 +12,8 @@ const baseStyle = definePartsStyle({
         borderRadius: 8,
         minW: "40",
         shadow: "md",
-        borderColor: "gray.200",
-        border: "1px",
+        borderColor: "gray.100",
+        borderWidth: "1px",
     },
     item: {
         borderRadius: 4,
