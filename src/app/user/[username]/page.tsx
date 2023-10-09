@@ -1,3 +1,4 @@
+import { EditProfileButton } from "@/components/EditProfileButton/EditProfileButton"
 import { Box, Text, HStack, VStack, Heading } from "@chakra-ui/react"
 
 export default function ProfilePage({ params }: { params: { username: string } }) {
@@ -18,6 +19,7 @@ export default function ProfilePage({ params }: { params: { username: string } }
                     </VStack>
                     <Text fontSize="14">Location : India</Text>
                     <Text fontSize="14">Personal Site : something.com</Text>
+                    <EditProfileButton />
                 </VStack>
                 <VStack flex="1" bg="gray.100" borderRadius={16} p={8} minH="100vh"></VStack>
             </HStack>
