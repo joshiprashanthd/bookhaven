@@ -1,5 +1,7 @@
 import { EditProfileButton } from "@/components/EditProfileButton/EditProfileButton"
-import { Box, Text, HStack, VStack, Heading } from "@chakra-ui/react"
+import { LocationPinIcon } from "@/icons/LocationPinIcon"
+import { MailIcon } from "@/icons/MailIcon"
+import { Box, Text, HStack, VStack, Heading, Flex } from "@chakra-ui/react"
 
 export default function ProfilePage({ params }: { params: { username: string } }) {
     return (
@@ -17,8 +19,14 @@ export default function ProfilePage({ params }: { params: { username: string } }
                             delectus dolore repellat obcaecati aut, enim dicta.
                         </Text>
                     </VStack>
-                    <Text fontSize="14">Location : India</Text>
-                    <Text fontSize="14">Personal Site : something.com</Text>
+                    <HStack align="center" spacing={2}>
+                        <LocationPinIcon size={18} />
+                        <Text fontSize="14">India</Text>
+                    </HStack>
+                    <HStack spacing={2}>
+                        <MailIcon size={18} />
+                        <Text fontSize="14">bob@bob.com</Text>
+                    </HStack>
                     <EditProfileButton />
                 </VStack>
                 <VStack flex="1" bg="gray.100" borderRadius={16} p={8} minH="100vh"></VStack>
