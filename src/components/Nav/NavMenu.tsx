@@ -14,7 +14,7 @@ export const NavMenu = () => {
             <MenuList borderRadius={8} fontSize={14} minW="40">
                 <MenuItem
                     as={Link}
-                    href="/profile"
+                    href="/user/currentUser"
                     _hover={{ textDecoration: "none" }}
                     icon={<UserIcon size={18} />}
                 >
