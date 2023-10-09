@@ -14,7 +14,7 @@ import React, { useState } from "react"
 
 export const LoginBody = ({ setState }: { setState: (state: "login" | "signup") => void }) => {
     const [formState, setFormState] = useState({
-        email: "",
+        username: "",
         password: "",
     })
 
@@ -31,26 +31,26 @@ export const LoginBody = ({ setState }: { setState: (state: "login" | "signup") 
             <ModalBody>
                 <VStack spacing={4}>
                     <FormControl w="full">
-                        <FormLabel fontWeight="semibold" mb={1} fontSize="14">
-                            Email
+                        <FormLabel fontWeight="semibold" mb={2} fontSize="14">
+                            Username
                         </FormLabel>
                         <Input
                             variant="filled"
-                            name="email"
-                            type="email"
-                            placeholder="Enter your email..."
+                            name="username"
+                            type="username"
+                            placeholder="..."
                             onChange={onFormChange}
                         />
                     </FormControl>
                     <FormControl w="full">
-                        <FormLabel fontWeight="semibold" mb={1} fontSize="14">
+                        <FormLabel fontWeight="semibold" mb={2} fontSize="14">
                             Password
                         </FormLabel>
                         <Input
                             variant="filled"
                             name="password"
                             type="password"
-                            placeholder="Enter your password..."
+                            placeholder="..."
                             onChange={onFormChange}
                         />
                     </FormControl>

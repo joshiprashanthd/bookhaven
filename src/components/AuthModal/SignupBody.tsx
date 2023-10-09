@@ -18,6 +18,7 @@ export const SignupBody = ({ setState }: { setState: (state: "login" | "signup")
         lastname: "",
         email: "",
         password: "",
+        username: "",
     })
 
     const onFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -33,50 +34,62 @@ export const SignupBody = ({ setState }: { setState: (state: "login" | "signup")
             <ModalBody>
                 <VStack spacing={4}>
                     <FormControl w="full">
-                        <FormLabel fontWeight="semibold" mb={1} fontSize="14">
+                        <FormLabel fontWeight="semibold" mb={2} fontSize="14">
                             First Name
                         </FormLabel>
                         <Input
                             variant="filled"
                             name="firstname"
                             type="text"
-                            placeholder="Enter your firstname..."
+                            placeholder="..."
                             onChange={onFormChange}
                         />
                     </FormControl>
                     <FormControl w="full">
-                        <FormLabel fontWeight="semibold" mb={1} fontSize="14">
+                        <FormLabel fontWeight="semibold" mb={2} fontSize="14">
                             Last Name
                         </FormLabel>
                         <Input
                             variant="filled"
                             name="lastname"
                             type="text"
-                            placeholder="Enter your lastname..."
+                            placeholder="..."
                             onChange={onFormChange}
                         />
                     </FormControl>
                     <FormControl w="full">
-                        <FormLabel fontWeight="semibold" mb={1} fontSize="14">
+                        <FormLabel fontWeight="semibold" mb={2} fontSize="14">
+                            Username
+                        </FormLabel>
+                        <Input
+                            variant="filled"
+                            name="username"
+                            type="text"
+                            placeholder="..."
+                            onChange={onFormChange}
+                        />
+                    </FormControl>
+                    <FormControl w="full">
+                        <FormLabel fontWeight="semibold" mb={2} fontSize="14">
                             Email
                         </FormLabel>
                         <Input
                             variant="filled"
                             name="email"
                             type="email"
-                            placeholder="Enter your email..."
+                            placeholder="..."
                             onChange={onFormChange}
                         />
                     </FormControl>
                     <FormControl w="full">
-                        <FormLabel fontWeight="semibold" mb={1} fontSize="14">
+                        <FormLabel fontWeight="semibold" mb={2} fontSize="14">
                             Password
                         </FormLabel>
                         <Input
                             variant="filled"
                             name="password"
                             type="password"
-                            placeholder="Enter your password..."
+                            placeholder="..."
                             onChange={onFormChange}
                         />
                     </FormControl>
