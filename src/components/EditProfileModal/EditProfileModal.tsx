@@ -13,6 +13,7 @@ import {
     VStack,
     Textarea,
 } from "@chakra-ui/react"
+import React from "react"
 import { useState } from "react"
 
 export const EditProfileModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
