@@ -69,7 +69,7 @@ const YearMenu = ({
             <MenuButton
                 as={Button}
                 w="full"
-                rightIcon={<ChevronDown size={18} />}
+                rightIcon={<ChevronDown />}
                 variant="tertiary"
                 fontWeight="medium"
             >
