@@ -1,13 +1,13 @@
 import { EditProfileButton } from "@/components/EditProfileButton/EditProfileButton"
 import { LocationPinIcon } from "@/icons/LocationPinIcon"
 import { MailIcon } from "@/icons/MailIcon"
-import { Box, Text, HStack, VStack, Heading, Flex } from "@chakra-ui/react"
+import { Box, Text, HStack, VStack, Heading } from "@chakra-ui/react"
 
 export default function ProfilePage({ params }: { params: { username: string } }) {
     return (
         <Box as="section" w="full">
             <HStack align="start" spacing={4}>
-                <VStack borderRadius={16} bg="gray.100" p={4} w="20vw" align="start">
+                <VStack borderRadius={16} bg="gray.100" p={6} w="20vw" align="start" shadow="lg">
                     <Box h="52" w="52" borderRadius="full" bg="gray.500" mx="auto" mb={4}></Box>
                     <Heading size="lg">Prashant Joshi</Heading>
                     <Text color="purple.500">{params.username}</Text>

@@ -1,9 +1,4 @@
-import {
-    Modal,
-    ModalCloseButton,
-    ModalContent,
-    ModalOverlay
-} from "@chakra-ui/react"
+import { Modal, ModalCloseButton, ModalContent, ModalOverlay } from "@chakra-ui/react"
 import { useState } from "react"
 import { LoginBody } from "./LoginBody"
 import { SignupBody } from "./SignupBody"
