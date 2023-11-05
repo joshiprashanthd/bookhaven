@@ -62,7 +62,7 @@ def main():
                 authors=row[4],
                 genre=row[5],
                 description=row[7],
-                publishedYear=row[8],
+                publishedYear=int(row[8]),
                 imageUrl=row[6])
             if success:
                 add_cnt += 1
