@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface BookRepository {
 
-    List<Book> findAll() throws BhResourceNotFoundException;
+    List<Book> findAll(String title, String startYear, String endYear, String genre) throws BhResourceNotFoundException;
 
     Book findById(Integer bookId) throws BhResourceNotFoundException;
 

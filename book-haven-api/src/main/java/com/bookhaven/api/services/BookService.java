@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface BookService {
 
-    List<Book> fetchAllBooks();
+    List<Book> fetchAllBooks(String title, String startYear, String endYear, String genre);
     Book fetchBookById(Integer bookId) throws BhResourceNotFoundException;
     Book addBook(String title, String subtitle, String authors, String genre, String description, String publishedYear, String imageUrl) throws BhBadRequestException;
     void updateBook(Integer bookId, Book book) throws BhBadRequestException;

@@ -24,8 +24,11 @@ public class BookResource {
     }
 
     @GetMapping("")
-    public ResponseEntity<List<Book>> getAllBooks(HttpServletRequest request){
-        List<Book> books = bookService.fetchAllBooks();
+    public ResponseEntity<List<Book>> getAllBooks(@RequestParam(value = "title", required = false) String bookTitle,
+                                                  @RequestParam(value = "year_start", required = false) String yearStart,
+                                                  @RequestParam(value = "year_end", required = false) String yearEnd,
+                                                  @RequestParam(value = "genre", required = false) String genre){
+        List<Book> books = bookService.fetchAllBooks(bookTitle, yearStart, yearEnd, genre);
         return new ResponseEntity<>(books, HttpStatus.OK);
     }
 

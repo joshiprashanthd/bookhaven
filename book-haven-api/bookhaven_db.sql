@@ -23,7 +23,7 @@ create table bh_books(
      authors varchar(1000) not null,
      genre varchar(500) not null,
      description text,
-     published_year varchar(10) not null,
+     published_year bigint not null,
      image_url varchar(5000)
 );
 

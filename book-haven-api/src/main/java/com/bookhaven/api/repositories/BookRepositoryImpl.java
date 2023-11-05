@@ -13,14 +13,15 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
 public class BookRepositoryImpl implements BookRepository{
 
-    private static final String SQL_FIND_ALL = "SELECT BOOK_ID, TITLE, SUBTITLE, AUTHORS, DESCRIPTION, PUBLISHED_YEAR, IMAGE_URL" +
+    private static final String SQL_FIND_ALL = "SELECT BOOK_ID, TITLE, SUBTITLE, GENRE, AUTHORS, DESCRIPTION, PUBLISHED_YEAR, IMAGE_URL" +
             " FROM BH_BOOKS";
-    private static final String SQL_FIND_BY_ID = "SELECT BOOK_ID, TITLE, SUBTITLE, AUTHORS, DESCRIPTION, PUBLISHED_YEAR, IMAGE_URL" +
+    private static final String SQL_FIND_BY_ID = "SELECT BOOK_ID, TITLE, SUBTITLE, GENRE, AUTHORS, DESCRIPTION, PUBLISHED_YEAR, IMAGE_URL" +
             " FROM BH_BOOKS WHERE BOOK_ID = ?";
     private static final String SQL_CREATE = "INSERT INTO BH_BOOKS (BOOK_ID, TITLE, SUBTITLE, AUTHORS, GENRE, DESCRIPTION, PUBLISHED_YEAR," +
             "IMAGE_URL) VALUES(NEXTVAL('BH_BOOKS_SEQ'), ?, ?, ?, ?, ?, ?, ?)";
@@ -47,8 +48,31 @@ public class BookRepositoryImpl implements BookRepository{
     }
 
     @Override
-    public List<Book> findAll() throws BhResourceNotFoundException {
-        return jdbcTemplate.query(SQL_FIND_ALL, bookRowMapper);
+    public List<Book> findAll(String title, String startYear, String endYear, String genre) throws BhResourceNotFoundException {
+        List<String> conditions = new ArrayList<>();
+        List<Object> params = new ArrayList<>();
+        if(title != null){
+            conditions.add("TITLE ILIKE ?");
+            params.add("%" + title + "%");
+        }
+        if(genre != null) {
+            conditions.add("GENRE ILIKE ?");
+            params.add("%" + genre + "%");
+        }
+        if(startYear != null){
+            conditions.add("PUBLISHED_YEAR >= ?");
+            params.add(startYear);
+        }
+        if(endYear != null){
+            conditions.add("PUBLISHED_YEAR <= ?");
+            params.add(endYear);
+        }
+        String modifiedSQL = SQL_FIND_ALL;
+        if(!conditions.isEmpty()) {
+            modifiedSQL = SQL_FIND_ALL + " WHERE " + String.join(" AND ", conditions);
+        }
+
+        return jdbcTemplate.query(modifiedSQL, bookRowMapper, params.toArray());
     }
 
     @Override
@@ -140,6 +164,7 @@ public class BookRepositoryImpl implements BookRepository{
                 rs.getInt("BOOK_ID"),
                 rs.getString("TITLE"),
                 rs.getString("SUBTITLE"),
+                rs.getString("GENRE"),
                 rs.getString("AUTHORS"),
                 rs.getString("DESCRIPTION"),
                 rs.getString("PUBLISHED_YEAR"),
