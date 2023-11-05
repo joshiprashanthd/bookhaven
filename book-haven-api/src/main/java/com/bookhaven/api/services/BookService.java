@@ -9,9 +9,9 @@ import java.util.List;
 
 public interface BookService {
 
-    List<Book> fetchAllBooks(String title, String startYear, String endYear, String genre);
+    List<Book> fetchAllBooks(String title, Long startYear, Long endYear, String genre);
     Book fetchBookById(Integer bookId) throws BhResourceNotFoundException;
-    Book addBook(String title, String subtitle, String authors, String genre, String description, String publishedYear, String imageUrl) throws BhBadRequestException;
+    Book addBook(String title, String subtitle, String authors, String genre, String description, Long publishedYear, String imageUrl) throws BhBadRequestException;
     void updateBook(Integer bookId, Book book) throws BhBadRequestException;
     List<UserBookDetails> fetchUserLibrary(Integer userId);
     UserBookDetails addBookToUserLibrary(Integer userId, Integer bookId) throws BhBadRequestException;

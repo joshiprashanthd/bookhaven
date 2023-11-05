@@ -9,10 +9,10 @@ public class Book {
     private String genre;
     private String authors;
     private String description;
-    private String publishedYear;
+    private Long publishedYear;
     private String imageUrl;
 
-    public Book(Integer bookId, String title, String subtitle, String genre, String authors, String description, String publishedYear, String imageUrl) {
+    public Book(Integer bookId, String title, String subtitle, String genre, String authors, String description, Long publishedYear, String imageUrl) {
         this.bookId = bookId;
         this.title = title;
         this.subtitle = subtitle;
@@ -63,11 +63,11 @@ public class Book {
         this.description = description;
     }
 
-    public String getPublishedYear() {
+    public Long getPublishedYear() {
         return publishedYear;
     }
 
-    public void setPublishedYear(String publishedYear) {
+    public void setPublishedYear(Long publishedYear) {
         this.publishedYear = publishedYear;
     }
 

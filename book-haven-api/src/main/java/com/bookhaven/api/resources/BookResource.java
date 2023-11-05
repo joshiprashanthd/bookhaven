@@ -25,8 +25,8 @@ public class BookResource {
 
     @GetMapping("")
     public ResponseEntity<List<Book>> getAllBooks(@RequestParam(value = "title", required = false) String bookTitle,
-                                                  @RequestParam(value = "year_start", required = false) String yearStart,
-                                                  @RequestParam(value = "year_end", required = false) String yearEnd,
+                                                  @RequestParam(value = "startYear", required = false) Long yearStart,
+                                                  @RequestParam(value = "endYear", required = false) Long yearEnd,
                                                   @RequestParam(value = "genre", required = false) String genre){
         List<Book> books = bookService.fetchAllBooks(bookTitle, yearStart, yearEnd, genre);
         return new ResponseEntity<>(books, HttpStatus.OK);
@@ -48,7 +48,7 @@ public class BookResource {
         String authors = (String) bookMap.get("authors");
         String genre = (String) bookMap.get("genre");
         String description = (String) bookMap.get("description");
-        String publishedYear = (String) bookMap.get("publishedYear");
+        Long publishedYear = Long.parseLong((String) bookMap.get("publishedYear"));
         String imageUrl = (String) bookMap.get("imageUrl");
         Book book = bookService.addBook(title, subtitle, authors, genre, description, publishedYear, imageUrl);
         return new ResponseEntity<>(book, HttpStatus.CREATED);

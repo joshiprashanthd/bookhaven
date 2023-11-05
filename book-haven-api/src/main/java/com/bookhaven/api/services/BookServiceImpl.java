@@ -20,7 +20,7 @@ public class BookServiceImpl implements BookService{
     }
 
     @Override
-    public List<Book> fetchAllBooks(String title, String startYear, String endYear, String genre) {
+    public List<Book> fetchAllBooks(String title, Long startYear, Long endYear, String genre) {
         return bookRepository.findAll(title, startYear, endYear, genre);
     }
 
@@ -30,7 +30,7 @@ public class BookServiceImpl implements BookService{
     }
 
     @Override
-    public Book addBook(String title, String subtitle, String authors, String genre, String description, String publishedYear, String imageUrl) throws BhBadRequestException {
+    public Book addBook(String title, String subtitle, String authors, String genre, String description, Long publishedYear, String imageUrl) throws BhBadRequestException {
         int bookId = bookRepository.create(title, subtitle, authors, genre, description, publishedYear, imageUrl);
         return bookRepository.findById(bookId);
     }
