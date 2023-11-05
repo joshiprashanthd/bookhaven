@@ -23,6 +23,7 @@ The following guides illustrate how to use some features concretely:
 
 
 Setting up PostgresDb in Docker:
+* docker container run --name postgresdb -e POSTGRES_PASSWORD=admin -d -p 5432:5432 postgres
 * docker cp bookhaven_db.sql postgresdb:/
 * docker container exec -it postgresdb bash
 * psql -U postgres --file bookhaven_db.sql
