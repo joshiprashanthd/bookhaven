@@ -48,7 +48,7 @@ public class BookRepositoryImpl implements BookRepository{
     }
 
     @Override
-    public List<Book> findAll(String title, String startYear, String endYear, String genre) throws BhResourceNotFoundException {
+    public List<Book> findAll(String title, Long startYear, Long endYear, String genre) throws BhResourceNotFoundException {
         List<String> conditions = new ArrayList<>();
         List<Object> params = new ArrayList<>();
         if(title != null){
@@ -85,7 +85,7 @@ public class BookRepositoryImpl implements BookRepository{
     }
 
     @Override
-    public Integer create(String title, String subtitle, String authors, String genre, String description, String publishedYear, String imageUrl) throws BhBadRequestException {
+    public Integer create(String title, String subtitle, String authors, String genre, String description, Long publishedYear, String imageUrl) throws BhBadRequestException {
         try {
             KeyHolder keyHolder = new GeneratedKeyHolder();
             jdbcTemplate.update(connection -> {
@@ -95,7 +95,7 @@ public class BookRepositoryImpl implements BookRepository{
                 ps.setString(3, authors);
                 ps.setString(4, genre);
                 ps.setString(5, description);
-                ps.setString(6, publishedYear);
+                ps.setLong(6, publishedYear);
                 ps.setString(7, imageUrl);
                 return ps;
             }, keyHolder);
@@ -167,7 +167,7 @@ public class BookRepositoryImpl implements BookRepository{
                 rs.getString("GENRE"),
                 rs.getString("AUTHORS"),
                 rs.getString("DESCRIPTION"),
-                rs.getString("PUBLISHED_YEAR"),
+                rs.getLong("PUBLISHED_YEAR"),
                 rs.getString("IMAGE_URL"));
     });
 
