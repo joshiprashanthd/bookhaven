@@ -1,6 +1,7 @@
 package com.bookhaven.api.resources;
 
 import com.bookhaven.api.domain.Book;
+import com.bookhaven.api.domain.BookReview;
 import com.bookhaven.api.services.BookService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,5 +64,53 @@ public class BookResource {
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
+    @GetMapping("/{bookId}/reviews")
+    public ResponseEntity<List<BookReview>> getAllBookReviews(@PathVariable("bookId") Integer bookId){
+        List<BookReview> bookReviews = bookService.fetchBookReviews(bookId);
+        return new ResponseEntity<>(bookReviews, HttpStatus.OK);
+    }
 
+    @GetMapping("/{bookId}/reviews/{reviewId}")
+    public ResponseEntity<BookReview> getBookReviewById(@PathVariable("reviewId") Long reviewId){
+        BookReview bookReview = bookService.fetchBookReviewById(reviewId);
+        return new ResponseEntity<>(bookReview, HttpStatus.OK);
+    }
+
+    @PostMapping("/{bookId}/reviews")
+    public ResponseEntity<BookReview> addBookReview(HttpServletRequest request,
+                                                    @PathVariable("bookId") Integer bookId,
+                                                    @RequestBody Map<String, Object> reviewMap){
+        int userId = (Integer) request.getAttribute("userId");
+        Double rating = (Double) reviewMap.get("rating");
+        String reviewText = (String) reviewMap.get("reviewText");
+        BookReview createdReview = bookService.createBookReview(userId, bookId, rating, reviewText);
+
+        return new ResponseEntity<>(createdReview, HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{bookId}/reviews/{reviewId}")
+    public ResponseEntity<Map<String, Boolean>> updateBookReview(HttpServletRequest request,
+                                                                 @PathVariable("bookId") Integer bookId,
+                                                                 @PathVariable("reviewId") Long reviewId,
+                                                                 @RequestBody Map<String, Object> reviewMap){
+        int userId = (Integer) request.getAttribute("userId");
+        Double rating = (Double) reviewMap.get("rating");
+        String reviewText = (String) reviewMap.get("reviewText");
+
+        bookService.updateBookReview(userId, bookId, reviewId, rating, reviewText);
+        Map<String, Boolean> map = new HashMap<>();
+        map.put("success", true);
+        return new ResponseEntity<>(map, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{bookId}/reviews/{reviewId}")
+    public ResponseEntity<Map<String, Boolean>> deleteBookReview(HttpServletRequest request,
+                                                                 @PathVariable("bookId") Integer bookId,
+                                                                 @PathVariable("reviewId") Long reviewId){
+        int userId = (Integer) request.getAttribute("userId");
+        bookService.deleteBookReview(userId, bookId, reviewId);
+        Map<String, Boolean> map = new HashMap<>();
+        map.put("success", true);
+        return new ResponseEntity<>(map, HttpStatus.OK);
+    }
 }

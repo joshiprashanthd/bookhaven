@@ -31,7 +31,7 @@ create table bh_book_reviews(
     book_review_id bigint primary key not null,
     book_id integer not null,
     user_id integer not null,
-    rating numeric(2,2) not null,
+    rating numeric(4,1) not null,
     review_text text not null
 );
 alter table bh_book_reviews add constraint book_reviews_book_fk

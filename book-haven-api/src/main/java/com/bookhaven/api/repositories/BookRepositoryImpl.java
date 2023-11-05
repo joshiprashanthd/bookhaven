@@ -1,6 +1,7 @@
 package com.bookhaven.api.repositories;
 
 import com.bookhaven.api.domain.Book;
+import com.bookhaven.api.domain.BookReview;
 import com.bookhaven.api.domain.UserBookDetails;
 import com.bookhaven.api.exceptions.BhBadRequestException;
 import com.bookhaven.api.exceptions.BhResourceNotFoundException;
@@ -39,6 +40,17 @@ public class BookRepositoryImpl implements BookRepository{
     private static final String SQL_UPDATE_USER_LIBRARY_BOOK_DETAIL = "UPDATE BH_USER_LIBRARIES SET HAS_READ = ?, BOOKMARKED = ? WHERE USER_ID = ? AND BOOK_ID = ?";
 
     private static final String SQL_DELETE_USER_LIBRARY_BOOK = "DELETE FROM BH_USER_LIBRARIES WHERE USER_ID = ? AND BOOK_ID = ?";
+
+    private static final String SQL_FIND_ALL_BOOK_REVIEWS = "SELECT BOOK_REVIEW_ID, BOOK_ID, USER_ID, RATING, REVIEW_TEXT FROM BH_BOOK_REVIEWS WHERE BOOK_ID = ?";
+
+    private static final String SQL_FIND_BY_ID_BOOK_REVIEW = "SELECT BOOK_REVIEW_ID, BOOK_ID, USER_ID, RATING, REVIEW_TEXT FROM BH_BOOK_REVIEWS WHERE BOOK_REVIEW_ID = ?";
+
+    private static final String SQL_CREATE_BOOK_REVIEW = "INSERT INTO BH_BOOK_REVIEWS(BOOK_REVIEW_ID, BOOK_ID, USER_ID, RATING, REVIEW_TEXT)" +
+            " VALUES(NEXTVAL('BH_BOOK_REVIEWS_SEQ'), ?, ?, ?, ?)";
+
+    private static final String SQL_UPDATE_BOOK_REVIEW = "UPDATE BH_BOOK_REVIEWS SET RATING = ?, REVIEW_TEXT = ? WHERE BOOK_REVIEW_ID = ?";
+
+    private static final String SQL_DELETE_BOOK_REVIEW = "DELETE FROM BH_BOOK_REVIEWS WHERE BOOK_REVIEW_ID = ?";
 
     final
     JdbcTemplate jdbcTemplate;
@@ -159,6 +171,48 @@ public class BookRepositoryImpl implements BookRepository{
         jdbcTemplate.update(SQL_DELETE_USER_LIBRARY_BOOK, new Object[]{userId, bookId});
     }
 
+    @Override
+    public List<BookReview> findAllBookReviews(Integer bookId) {
+        return jdbcTemplate.query(SQL_FIND_ALL_BOOK_REVIEWS, bookReviewRowMapper, new Object[]{bookId});
+    }
+
+    @Override
+    public BookReview findReviewById(Long reviewId) throws BhResourceNotFoundException {
+        return jdbcTemplate.queryForObject(SQL_FIND_BY_ID_BOOK_REVIEW, bookReviewRowMapper, new Object[]{reviewId});
+    }
+
+    @Override
+    public Long createBookReview(Integer userId, Integer bookId, Double rating, String reviewText) throws BhBadRequestException{
+        try {
+            KeyHolder keyHolder = new GeneratedKeyHolder();
+            jdbcTemplate.update(connection -> {
+                PreparedStatement ps = connection.prepareStatement(SQL_CREATE_BOOK_REVIEW, Statement.RETURN_GENERATED_KEYS);
+                ps.setInt(1, bookId);
+                ps.setInt(2, userId);
+                ps.setDouble(3, Math.round(rating));
+                ps.setString(4, reviewText);
+                return ps;
+            }, keyHolder);
+            return (Long) keyHolder.getKeys().get("BOOK_REVIEW_ID");
+        }catch (Exception e){
+            throw new BhBadRequestException("Invalid request");
+        }
+    }
+
+    @Override
+    public void updateBookReview(Long reviewId, Double rating, String reviewText) throws BhBadRequestException{
+        try{
+            jdbcTemplate.update(SQL_UPDATE_BOOK_REVIEW, new Object[]{rating, reviewText, reviewId});
+        }catch (Exception e){
+            throw new BhBadRequestException("Invalid request");
+        }
+    }
+
+    @Override
+    public void deleteBookReview(Long reviewId) throws BhBadRequestException{
+        jdbcTemplate.update(SQL_DELETE_BOOK_REVIEW, new Object[]{reviewId});
+    }
+
     private RowMapper<Book> bookRowMapper = ((rs, rowNum) -> {
         return new Book(
                 rs.getInt("BOOK_ID"),
@@ -177,4 +231,23 @@ public class BookRepositoryImpl implements BookRepository{
                 rs.getBoolean("HAS_READ"),
                 rs.getBoolean("BOOKMARKED"));
     });
+
+    private RowMapper<BookReview> bookReviewRowMapper = ((rs, rowNum) -> {
+       return new BookReview(
+               rs.getLong("BOOK_REVIEW_ID"),
+               rs.getInt("BOOK_ID"),
+               rs.getInt("USER_ID"),
+               rs.getDouble("RATING"),
+               rs.getString("REVIEW_TEXT")
+       );
+    });
+
+    public static double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+
+        long factor = (long) Math.pow(10, places);
+        value = value * factor;
+        long tmp = Math.round(value);
+        return (double) tmp / factor;
+    }
 }
