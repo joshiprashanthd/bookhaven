@@ -20,8 +20,8 @@ public class BookServiceImpl implements BookService{
     }
 
     @Override
-    public List<Book> fetchAllBooks() {
-        return bookRepository.findAll();
+    public List<Book> fetchAllBooks(String title, String startYear, String endYear, String genre) {
+        return bookRepository.findAll(title, startYear, endYear, genre);
     }
 
     @Override

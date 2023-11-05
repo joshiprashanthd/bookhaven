@@ -12,10 +12,11 @@ public class Book {
     private String publishedYear;
     private String imageUrl;
 
-    public Book(Integer bookId, String title, String subtitle, String authors, String description, String publishedYear, String imageUrl) {
+    public Book(Integer bookId, String title, String subtitle, String genre, String authors, String description, String publishedYear, String imageUrl) {
         this.bookId = bookId;
         this.title = title;
         this.subtitle = subtitle;
+        this.genre = genre;
         this.authors = authors;
         this.description = description;
         this.publishedYear = publishedYear;

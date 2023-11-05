@@ -21,6 +21,7 @@ public class AuthFilter extends GenericFilterBean {
         HttpServletResponse httpResponse = (HttpServletResponse) servletResponse;
 
         String requestUri = httpRequest.getRequestURI();
+        String requestMethod = httpRequest.getMethod();
         String authHeader = httpRequest.getHeader("Authorization");
         if(authHeader != null){
             String[] authHeaderArr = authHeader.split("Bearer");
@@ -31,7 +32,7 @@ public class AuthFilter extends GenericFilterBean {
                             .parseClaimsJws(token).getBody();
                     httpRequest.setAttribute("userId", Integer.parseInt(claims.get("userId").toString()));
                     boolean isAdmin = Boolean.parseBoolean(claims.get("isAdmin").toString());
-                    if(requestUri.startsWith("/api/books") && isAdmin != Boolean.TRUE){
+                    if(requestUri.startsWith("/api/books") && !requestMethod.equals("GET") && isAdmin != Boolean.TRUE){
                         httpResponse.sendError(HttpStatus.FORBIDDEN.value(), "unauthorized access");
                         return;
                     }
