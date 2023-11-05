@@ -32,7 +32,7 @@ public class AuthFilter extends GenericFilterBean {
                             .parseClaimsJws(token).getBody();
                     httpRequest.setAttribute("userId", Integer.parseInt(claims.get("userId").toString()));
                     boolean isAdmin = Boolean.parseBoolean(claims.get("isAdmin").toString());
-                    if(requestUri.startsWith("/api/books") && !requestMethod.equals("GET") && isAdmin != Boolean.TRUE){
+                    if(requestUri.equals("/api/books") && !requestMethod.equals("GET") && isAdmin != Boolean.TRUE){
                         httpResponse.sendError(HttpStatus.FORBIDDEN.value(), "unauthorized access");
                         return;
                     }
