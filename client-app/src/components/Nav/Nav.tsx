@@ -1,10 +1,11 @@
 "use client"
 
-import { Flex, HStack, Text } from "@chakra-ui/react"
+import { Flex, HStack, Image, Text } from "@chakra-ui/react"
 import { Layout } from "../Layout/Layout"
 import { LoginButton } from "../LoginButton/LoginButton"
 import { Search } from "../Search/Search"
 import { NavMenu } from "./NavMenu"
+import Link from "next/link"
 
 export function Nav() {
     return (
@@ -22,9 +23,25 @@ export function Nav() {
                     border="gray.400"
                     borderRadius={16}
                 >
-                    <Text fontSize={20} fontWeight={700} color="purple.500">
-                        BookHaven
-                    </Text>
+                    <Link href={"/"}>
+                        <Flex>
+                            <Image
+                                src="https://marla.ie/wp-content/uploads/2016/09/bookhaven.jpg"
+                                alt="Book Haven"
+                                height={"50px"}
+                                width={"50px"}
+                            />
+                            <Text
+                                fontSize={20}
+                                fontWeight={700}
+                                color="purple.500"
+                                marginTop={"10px"}
+                                marginLeft={"10px"}
+                            >
+                                BOOK HAVEN
+                            </Text>
+                        </Flex>
+                    </Link>
                     <Search />
                     <HStack align="center" spacing={4}>
                         <LoginButton />
