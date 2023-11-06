@@ -5,26 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="051c6b6f-7b38-429e-9cc6-81a745c1662a" name="Changes" comment="Fixed bugs in startYear and endYear filters">
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/bookhaven/api/domain/BookReview.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/fb3affe6-aa06-4747-9349-2299d5bbc735.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/fb3affe6-aa06-4747-9349-2299d5bbc735.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/fb3affe6-aa06-4747-9349-2299d5bbc735/storage_v2/_src_/database/bookhavendb.--vqyQ/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/fb3affe6-aa06-4747-9349-2299d5bbc735/storage_v2/_src_/database/bookhavendb.--vqyQ/schema/public.abK9xQ.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bookhaven_db.sql" beforeDir="false" afterPath="$PROJECT_DIR$/bookhaven_db.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bookhaven/api/filters/AuthFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bookhaven/api/filters/AuthFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bookhaven/api/domain/Book.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bookhaven/api/domain/Book.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/bookhaven/api/repositories/BookRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bookhaven/api/repositories/BookRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/bookhaven/api/repositories/BookRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bookhaven/api/repositories/BookRepositoryImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/bookhaven/api/resources/BookResource.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bookhaven/api/resources/BookResource.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/bookhaven/api/services/BookService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bookhaven/api/services/BookService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/bookhaven/api/services/BookServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bookhaven/api/services/BookServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bookhaven/api/filters/AuthFilter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bookhaven/api/filters/AuthFilter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/bookhaven/api/domain/Book.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bookhaven/api/domain/Book.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/bookhaven/api/repositories/BookRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bookhaven/api/repositories/BookRepository.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/bookhaven/api/repositories/BookRepositoryImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bookhaven/api/repositories/BookRepositoryImpl.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/bookhaven/api/resources/BookResource.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bookhaven/api/resources/BookResource.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/bookhaven/api/services/BookService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bookhaven/api/services/BookService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/bookhaven/api/services/BookServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bookhaven/api/services/BookServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client-app/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../client-app/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../seed_db.py" beforeDir="false" afterPath="$PROJECT_DIR$/../seed_db.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,8 +38,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$/.." value="api-dev" />
-        <entry key="$PROJECT_DIR$/.." value="feature/seed_db" />
+        <entry key="$PROJECT_DIR$/.." value="main" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
@@ -74,7 +69,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "api-dev",
-    "last_opened_file_path": "/Users/ankitmishra/Dev/Projects/BookHaven/book-haven-api",
+    "last_opened_file_path": "/Users/ankitmishra/Dev/Projects/bookhaven/book-haven-api",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -130,6 +125,7 @@
       <workItem from="1698009983165" duration="2000" />
       <workItem from="1699192177581" duration="8394000" />
       <workItem from="1699203615880" duration="5813000" />
+      <workItem from="1699247288584" duration="1432000" />
     </task>
     <task id="LOCAL-00001" summary="Adding support for filters in books API">
       <option name="closed" value="true" />
@@ -177,21 +173,5 @@
     <MESSAGE value="Modified seed_db.py to pass publishedYear as int to the API call" />
     <MESSAGE value="Fixed bugs in startYear and endYear filters" />
     <option name="LAST_COMMIT_MESSAGE" value="Fixed bugs in startYear and endYear filters" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/bookhaven/api/resources/BookResource.java</url>
-          <line>95</line>
-          <option name="timeStamp" value="11" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/bookhaven/api/repositories/BookRepositoryImpl.java</url>
-          <line>204</line>
-          <option name="timeStamp" value="13" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

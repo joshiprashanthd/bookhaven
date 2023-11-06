@@ -49,9 +49,10 @@ public class BookResource {
         String authors = (String) bookMap.get("authors");
         String genre = (String) bookMap.get("genre");
         String description = (String) bookMap.get("description");
-        Long publishedYear = Long.parseLong((String) bookMap.get("publishedYear"));
+        Integer publishedYear = (Integer) bookMap.get("publishedYear");
+        Integer numPages = (Integer) bookMap.get("numPages");
         String imageUrl = (String) bookMap.get("imageUrl");
-        Book book = bookService.addBook(title, subtitle, authors, genre, description, publishedYear, imageUrl);
+        Book book = bookService.addBook(title, subtitle, authors, genre, description, Long.valueOf(publishedYear), numPages, imageUrl);
         return new ResponseEntity<>(book, HttpStatus.CREATED);
     }
 

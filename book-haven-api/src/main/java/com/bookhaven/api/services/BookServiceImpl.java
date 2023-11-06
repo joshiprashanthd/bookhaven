@@ -32,8 +32,8 @@ public class BookServiceImpl implements BookService{
     }
 
     @Override
-    public Book addBook(String title, String subtitle, String authors, String genre, String description, Long publishedYear, String imageUrl) throws BhBadRequestException {
-        int bookId = bookRepository.create(title, subtitle, authors, genre, description, publishedYear, imageUrl);
+    public Book addBook(String title, String subtitle, String authors, String genre, String description, Long publishedYear, Integer numPages, String imageUrl) throws BhBadRequestException {
+        int bookId = bookRepository.create(title, subtitle, authors, genre, description, publishedYear, numPages, imageUrl);
         return bookRepository.findById(bookId);
     }
 

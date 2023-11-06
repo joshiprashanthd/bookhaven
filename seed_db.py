@@ -9,7 +9,7 @@ API_BASE_URL = "http://localhost:8080/api"
 
 FILE_PATH = "./books.csv"
 
-MAX_BOOKS_TO_ADD = 20
+MAX_BOOKS_TO_ADD = 50
 
 
 def login_as_admin():
@@ -26,14 +26,15 @@ def login_as_admin():
     return token
 
 
-def make_add_book_request(token, title, subtitle, authors, genre, description, publishedYear, imageUrl):
+def make_add_book_request(token, title, subtitle, authors, genre, description, publishedYear, numPages, imageUrl):
     book = {
         'title': title,
         'authors': authors,
         'genre': genre,
         'description': description,
         'publishedYear': publishedYear,
-        'imageUrl': imageUrl
+        'imageUrl': imageUrl,
+        'numPages': numPages
     }
     if subtitle != '':
         book['subtitle'] = subtitle
@@ -63,6 +64,7 @@ def main():
                 genre=row[5],
                 description=row[7],
                 publishedYear=int(row[8]),
+                numPages=int(row[10]),
                 imageUrl=row[6])
             if success:
                 add_cnt += 1

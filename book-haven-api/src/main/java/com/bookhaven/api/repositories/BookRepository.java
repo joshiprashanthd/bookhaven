@@ -16,7 +16,7 @@ public interface BookRepository {
     Book findById(Integer bookId) throws BhResourceNotFoundException;
 
     Integer create(String title, String subtitle, String authors, String genre,
-                   String description, Long publishedYear, String imageUrl)
+                   String description, Long publishedYear, Integer numPages, String imageUrl)
             throws BhBadRequestException;
 
     void update(Integer bookId, Book book) throws BhBadRequestException;

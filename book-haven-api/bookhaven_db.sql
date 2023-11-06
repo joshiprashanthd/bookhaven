@@ -24,6 +24,7 @@ create table bh_books(
      genre varchar(500) not null,
      description text,
      published_year bigint not null,
+     num_pages integer not null,
      image_url varchar(5000)
 );
 

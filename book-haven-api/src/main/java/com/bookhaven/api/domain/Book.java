@@ -10,9 +10,10 @@ public class Book {
     private String authors;
     private String description;
     private Long publishedYear;
+    private Integer numPages;
     private String imageUrl;
 
-    public Book(Integer bookId, String title, String subtitle, String genre, String authors, String description, Long publishedYear, String imageUrl) {
+    public Book(Integer bookId, String title, String subtitle, String genre, String authors, String description, Long publishedYear, Integer numPages, String imageUrl) {
         this.bookId = bookId;
         this.title = title;
         this.subtitle = subtitle;
@@ -20,7 +21,16 @@ public class Book {
         this.authors = authors;
         this.description = description;
         this.publishedYear = publishedYear;
+        this.numPages = numPages;
         this.imageUrl = imageUrl;
+    }
+
+    public Integer getNumPages() {
+        return numPages;
+    }
+
+    public void setNumPages(Integer numPages) {
+        this.numPages = numPages;
     }
 
     public Integer getBookId() {
