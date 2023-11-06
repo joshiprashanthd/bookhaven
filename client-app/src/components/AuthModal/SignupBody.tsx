@@ -28,6 +28,11 @@ export const SignupBody = ({ setState }: { setState: (state: "login" | "signup")
         }))
     }
 
+    const onFormClick = (e: any) => {
+        console.log(e)
+        console.log(formState)
+    }
+
     return (
         <>
             <ModalHeader>Sign Up</ModalHeader>
@@ -95,7 +100,7 @@ export const SignupBody = ({ setState }: { setState: (state: "login" | "signup")
                     </FormControl>
                 </VStack>
 
-                <Button w="full" mt={4}>
+                <Button w="full" mt={4} onClick={onFormClick}>
                     signup
                 </Button>
 
