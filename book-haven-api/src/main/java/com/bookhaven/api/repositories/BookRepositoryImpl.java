@@ -20,14 +20,14 @@ import java.util.List;
 @Repository
 public class BookRepositoryImpl implements BookRepository{
 
-    private static final String SQL_FIND_ALL = "SELECT BOOK_ID, TITLE, SUBTITLE, GENRE, AUTHORS, DESCRIPTION, PUBLISHED_YEAR, IMAGE_URL" +
+    private static final String SQL_FIND_ALL = "SELECT BOOK_ID, TITLE, SUBTITLE, GENRE, AUTHORS, DESCRIPTION, PUBLISHED_YEAR, NUM_PAGES, IMAGE_URL" +
             " FROM BH_BOOKS";
-    private static final String SQL_FIND_BY_ID = "SELECT BOOK_ID, TITLE, SUBTITLE, GENRE, AUTHORS, DESCRIPTION, PUBLISHED_YEAR, IMAGE_URL" +
+    private static final String SQL_FIND_BY_ID = "SELECT BOOK_ID, TITLE, SUBTITLE, GENRE, AUTHORS, DESCRIPTION, PUBLISHED_YEAR, NUM_PAGES, IMAGE_URL" +
             " FROM BH_BOOKS WHERE BOOK_ID = ?";
-    private static final String SQL_CREATE = "INSERT INTO BH_BOOKS (BOOK_ID, TITLE, SUBTITLE, AUTHORS, GENRE, DESCRIPTION, PUBLISHED_YEAR," +
-            "IMAGE_URL) VALUES(NEXTVAL('BH_BOOKS_SEQ'), ?, ?, ?, ?, ?, ?, ?)";
+    private static final String SQL_CREATE = "INSERT INTO BH_BOOKS (BOOK_ID, TITLE, SUBTITLE, AUTHORS, GENRE, DESCRIPTION, PUBLISHED_YEAR, NUM_PAGES," +
+            "IMAGE_URL) VALUES(NEXTVAL('BH_BOOKS_SEQ'), ?, ?, ?, ?, ?, ?, ?, ?)";
 
-    private static final String SQL_UPDATE = "UPDATE BH_BOOKS SET TITLE = ?, SUBTITLE = ?, AUTHORS = ?, GENRE = ?, DESCRIPTION = ?, PUBLISHED_YEAR = ?" +
+    private static final String SQL_UPDATE = "UPDATE BH_BOOKS SET TITLE = ?, SUBTITLE = ?, AUTHORS = ?, GENRE = ?, DESCRIPTION = ?, PUBLISHED_YEAR = ?, NUM_PAGES = ?" +
             ", IMAGE_URL = ? WHERE BOOK_ID = ?";
 
     private static final String SQL_BOOK_LIBRARY_ADD = "INSERT INTO BH_USER_LIBRARIES (USER_LIBRARY_ID, USER_ID, BOOK_ID, HAS_READ, BOOKMARKED) " +
@@ -97,7 +97,7 @@ public class BookRepositoryImpl implements BookRepository{
     }
 
     @Override
-    public Integer create(String title, String subtitle, String authors, String genre, String description, Long publishedYear, String imageUrl) throws BhBadRequestException {
+    public Integer create(String title, String subtitle, String authors, String genre, String description, Long publishedYear, Integer numPages, String imageUrl) throws BhBadRequestException {
         try {
             KeyHolder keyHolder = new GeneratedKeyHolder();
             jdbcTemplate.update(connection -> {
@@ -108,7 +108,8 @@ public class BookRepositoryImpl implements BookRepository{
                 ps.setString(4, genre);
                 ps.setString(5, description);
                 ps.setLong(6, publishedYear);
-                ps.setString(7, imageUrl);
+                ps.setInt(7, numPages);
+                ps.setString(8, imageUrl);
                 return ps;
             }, keyHolder);
             return (Integer) keyHolder.getKeys().get("BOOK_ID");
@@ -222,6 +223,7 @@ public class BookRepositoryImpl implements BookRepository{
                 rs.getString("AUTHORS"),
                 rs.getString("DESCRIPTION"),
                 rs.getLong("PUBLISHED_YEAR"),
+                rs.getInt("NUM_PAGES"),
                 rs.getString("IMAGE_URL"));
     });
 
