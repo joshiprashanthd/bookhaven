@@ -5,7 +5,7 @@ import { Layout } from "../Layout/Layout"
 import { LoginButton } from "../LoginButton/LoginButton"
 import { Search } from "../Search/Search"
 import { NavMenu } from "./NavMenu"
-import Link from "next/link"
+import { Link } from "@chakra-ui/next-js"
 
 export function Nav() {
     return (
@@ -23,24 +23,15 @@ export function Nav() {
                     border="gray.400"
                     borderRadius={16}
                 >
-                    <Link href={"/"}>
-                        <Flex>
-                            <Image
-                                src="https://marla.ie/wp-content/uploads/2016/09/bookhaven.jpg"
-                                alt="Book Haven"
-                                height={"50px"}
-                                width={"50px"}
-                            />
-                            <Text
-                                fontSize={20}
-                                fontWeight={700}
-                                color="purple.500"
-                                marginTop={"10px"}
-                                marginLeft={"10px"}
-                            >
-                                BOOK HAVEN
-                            </Text>
-                        </Flex>
+                    <Link
+                        href="/"
+                        as={Text}
+                        fontSize={20}
+                        fontWeight={700}
+                        color="purple.500"
+                        _hover={{ textDecoration: "none" }}
+                    >
+                        BookHaven
                     </Link>
                     <Search />
                     <HStack align="center" spacing={4}>
