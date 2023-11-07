@@ -6,8 +6,11 @@ import { LoginButton } from "../LoginButton/LoginButton"
 import { Search } from "../Search/Search"
 import { NavMenu } from "./NavMenu"
 import { Link } from "@chakra-ui/next-js"
+import { jwtTokenAtom } from "@/recoil/auth"
+import { useRecoilValue } from "recoil"
 
 export function Nav() {
+    const jwtToken = useRecoilValue(jwtTokenAtom)
     return (
         <Flex as="nav">
             <Layout>
@@ -35,8 +38,8 @@ export function Nav() {
                     </Link>
                     <Search />
                     <HStack align="center" spacing={4}>
-                        <LoginButton />
-                        <NavMenu />
+                        {jwtToken == null && <LoginButton />}
+                        {jwtToken != null && <NavMenu />}
                     </HStack>
                 </Flex>
             </Layout>
