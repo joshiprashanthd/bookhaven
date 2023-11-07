@@ -1,6 +1,9 @@
+import { AxiosContext } from "@/contexts/AxiosContext"
+import { jwtTokenAtom } from "@/recoil/auth"
 import {
     Button,
     FormControl,
+    FormErrorMessage,
     FormLabel,
     Input,
     Link,
@@ -10,27 +13,38 @@ import {
     Text,
     VStack,
 } from "@chakra-ui/react"
-import { useState } from "react"
+import { useContext, useState } from "react"
+import { useSetRecoilState } from "recoil"
 
 export const SignupBody = ({ setState }: { setState: (state: "login" | "signup") => void }) => {
+    const setJwtToken = useSetRecoilState(jwtTokenAtom)
+    const api = useContext(AxiosContext)
+    const [errorMessage, setErrorMessage] = useState("")
+    const [loading, setLoading] = useState(false)
     const [formState, setFormState] = useState({
-        firstname: "",
-        lastname: "",
+        firstName: "",
+        lastName: "",
         email: "",
         password: "",
-        username: "",
     })
+
+    const register = async () => {
+        setErrorMessage("")
+        setLoading(true)
+        try {
+            const response = await api.post("/users/register", formState)
+            setJwtToken(response.data.token)
+        } catch (error: any) {
+            setErrorMessage((prev) => error.response.data.message)
+        }
+        setLoading(false)
+    }
 
     const onFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFormState((prev) => ({
             ...prev,
             [e.target.name]: e.target.value,
         }))
-    }
-
-    const onFormClick = (e: any) => {
-        console.log(e)
-        console.log(formState)
     }
 
     return (
@@ -44,7 +58,7 @@ export const SignupBody = ({ setState }: { setState: (state: "login" | "signup")
                         </FormLabel>
                         <Input
                             variant="filled"
-                            name="firstname"
+                            name="firstName"
                             type="text"
                             placeholder="..."
                             onChange={onFormChange}
@@ -56,25 +70,13 @@ export const SignupBody = ({ setState }: { setState: (state: "login" | "signup")
                         </FormLabel>
                         <Input
                             variant="filled"
-                            name="lastname"
+                            name="lastName"
                             type="text"
                             placeholder="..."
                             onChange={onFormChange}
                         />
                     </FormControl>
-                    <FormControl w="full">
-                        <FormLabel fontWeight="semibold" mb={2} fontSize="14">
-                            Username
-                        </FormLabel>
-                        <Input
-                            variant="filled"
-                            name="username"
-                            type="text"
-                            placeholder="..."
-                            onChange={onFormChange}
-                        />
-                    </FormControl>
-                    <FormControl w="full">
+                    <FormControl w="full" isInvalid={errorMessage.length > 0}>
                         <FormLabel fontWeight="semibold" mb={2} fontSize="14">
                             Email
                         </FormLabel>
@@ -85,6 +87,9 @@ export const SignupBody = ({ setState }: { setState: (state: "login" | "signup")
                             placeholder="..."
                             onChange={onFormChange}
                         />
+                        {errorMessage.length > 0 && (
+                            <FormErrorMessage>{errorMessage}</FormErrorMessage>
+                        )}
                     </FormControl>
                     <FormControl w="full">
                         <FormLabel fontWeight="semibold" mb={2} fontSize="14">
@@ -100,7 +105,7 @@ export const SignupBody = ({ setState }: { setState: (state: "login" | "signup")
                     </FormControl>
                 </VStack>
 
-                <Button w="full" mt={4} onClick={onFormClick}>
+                <Button w="full" mt={4} onClick={register} isLoading={loading}>
                     signup
                 </Button>
 
