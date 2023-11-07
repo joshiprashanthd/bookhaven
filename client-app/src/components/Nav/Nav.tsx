@@ -1,6 +1,6 @@
 "use client"
 
-import { Flex, HStack, Image, Text } from "@chakra-ui/react"
+import { Flex, HStack, Text } from "@chakra-ui/react"
 import { Layout } from "../Layout/Layout"
 import { LoginButton } from "../LoginButton/LoginButton"
 import { Search } from "../Search/Search"
