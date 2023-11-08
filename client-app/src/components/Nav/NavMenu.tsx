@@ -6,8 +6,16 @@ import { Link } from "@chakra-ui/next-js"
 import { MenuIcon } from "@/icons/MenuIcon"
 import { LibraryIcon } from "@/icons/LibraryIcon"
 import { LogoutIcon } from "@/icons/LogoutIcon"
+import { useSetRecoilState } from "recoil"
+import { jwtTokenAtom } from "@/recoil/auth"
 
 export const NavMenu = () => {
+    const setJwtToken = useSetRecoilState(jwtTokenAtom)
+
+    const onLogout = () => {
+        setJwtToken(null)
+    }
+
     return (
         <Menu>
             <MenuButton as={IconButton} icon={<MenuIcon />} size="icon"></MenuButton>
@@ -29,7 +37,9 @@ export const NavMenu = () => {
                     Your Library
                 </MenuItem>
                 <MenuDivider />
-                <MenuItem icon={<LogoutIcon size={18} />}> Logout </MenuItem>
+                <MenuItem icon={<LogoutIcon size={18} />} onClick={onLogout}>
+                    Logout
+                </MenuItem>
             </MenuList>
         </Menu>
     )
