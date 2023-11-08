@@ -7,11 +7,11 @@ export default function Search({
     searchParams: { [key: string]: string | string[] | undefined }
 }) {
     return (
-        <Box margin={"10px"}>
-            <Heading size={"lg"} margin={"10px"}>
+        <Box>
+            <Heading size="lg" mb={8}>
                 Search Results for: {searchParams.q}
             </Heading>
-            <BooksList />
+            <BooksList columns={4} />
         </Box>
     )
 }

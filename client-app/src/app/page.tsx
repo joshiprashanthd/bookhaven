@@ -1,14 +1,13 @@
 import { BooksList } from "@/components/BooksList/BooksList"
-import { Filter } from "@/components/Filter/Filter"
-import { Heading } from "@chakra-ui/react"
+import { Box, Heading } from "@chakra-ui/react"
 
 export default function Home() {
     return (
-        <main>
-            <Heading size={"lg"} margin={"20px"} textAlign={"center"} color={"blue.700"}>
+        <Box as="main" w="full">
+            <Heading size="xl" mb={8} fontWeight="extrabold" letterSpacing="tight">
                 Featured Books
             </Heading>
-            <BooksList />
-        </main>
+            <BooksList columns={5} />
+        </Box>
     )
 }

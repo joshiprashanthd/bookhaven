@@ -4,7 +4,7 @@ import { Flex } from "@chakra-ui/react"
 export default function SearchLayout({ children }: { children: React.ReactNode }) {
     return (
         <Flex as="section" w="full">
-            <Flex>
+            <Flex align="start" gap={8}>
                 <Filter />
                 <Flex flex="1">{children}</Flex>
             </Flex>
