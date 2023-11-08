@@ -40,16 +40,7 @@ export const Filter = () => {
     }
 
     return (
-        <VStack
-            spacing={4}
-            bg="gray.100"
-            borderRadius={16}
-            minW="72"
-            p={4}
-            align="start"
-            margin={"10px"}
-            height={"250px"}
-        >
+        <VStack spacing={4} bg="gray.100" borderRadius={16} minW="72" p={4} align="start">
             <Flex justify="space-between" align="center" w="full">
                 <Heading size="md" fontWeight="semibold">
                     Filters

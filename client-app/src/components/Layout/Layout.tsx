@@ -5,7 +5,7 @@ import React from "react"
 
 export const Layout = ({ children }: { children: React.ReactNode }) => {
     return (
-        <Container centerContent maxW="container.xl">
+        <Container centerContent maxW="container.lg">
             {children}
         </Container>
     )
