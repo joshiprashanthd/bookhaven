@@ -1,11 +1,11 @@
 "use client"
 
-import { Box, Grid, HStack } from "@chakra-ui/react"
-import { BookCard } from "./BookCard"
 import { Book } from "@/@types/Book"
+import { SimpleGrid } from "@chakra-ui/react"
 import { useEffect, useState } from "react"
+import { BookCard } from "./BookCard"
 
-export const BooksList: React.FC = ({}) => {
+export const BooksList = ({ columns = 5 }: { columns?: number }) => {
     const [books, setBooks] = useState<Book[]>([])
 
     useEffect(() => {
@@ -64,12 +64,10 @@ export const BooksList: React.FC = ({}) => {
     }, [])
 
     return (
-        <div>
-            <Grid templateColumns="repeat(3, 1fr)" gap={6}>
-                {books.map((book) => {
-                    return <BookCard key={book.bookId} book={book} />
-                })}
-            </Grid>
-        </div>
+        <SimpleGrid columns={columns} gap={4}>
+            {books.map((book) => {
+                return <BookCard key={book.bookId} book={book} />
+            })}
+        </SimpleGrid>
     )
 }
