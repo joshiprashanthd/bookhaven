@@ -16,12 +16,14 @@ public class BookHavenApiApplication {
         SpringApplication.run(BookHavenApiApplication.class, args);
     }
 
-    @Bean FilterRegistrationBean<CorsFilter> corsFilter() {
+    @Bean
+    FilterRegistrationBean<CorsFilter> corsFilter() {
         FilterRegistrationBean<CorsFilter> registrationBean = new FilterRegistrationBean<>();
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
         config.addAllowedOrigin("http://localhost:3000");
         config.addAllowedHeader("*");
+        config.addAllowedMethod("*");
         source.registerCorsConfiguration("/**", config);
         registrationBean.setFilter(new CorsFilter(source));
         registrationBean.setOrder(0);
@@ -29,7 +31,7 @@ public class BookHavenApiApplication {
     }
 
     @Bean
-    public FilterRegistrationBean<AuthFilter> filterRegistrationBean(){
+    public FilterRegistrationBean<AuthFilter> filterRegistrationBean() {
         FilterRegistrationBean<AuthFilter> registrationBean = new FilterRegistrationBean<>();
         AuthFilter authFilter = new AuthFilter();
         registrationBean.setFilter(authFilter);
