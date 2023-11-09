@@ -1,7 +1,9 @@
 package com.bookhaven.api.services;
 
 import com.bookhaven.api.domain.User;
+import com.bookhaven.api.dtos.UserDto;
 import com.bookhaven.api.exceptions.BhAuthException;
+import com.bookhaven.api.exceptions.BhResourceNotFoundException;
 import com.bookhaven.api.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,5 +37,19 @@ public class UserServiceImpl implements UserService{
         }
         Integer userId = userRepository.create(firstName, lastName, email, password);
         return userRepository.findById(userId);
+    }
+
+    @Override
+    public UserDto getUserById(Integer userId) {
+        User user = userRepository.findById(userId);
+
+        return new UserDto(
+                user.getUserId(),
+                user.getFirstName(),
+                user.getLastName(),
+                user.getEmail(),
+                user.getAdmin(),
+                user.getDateJoined()
+        );
     }
 }
