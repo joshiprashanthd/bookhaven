@@ -2,15 +2,14 @@ package com.bookhaven.api.resources;
 
 import com.bookhaven.api.Constants;
 import com.bookhaven.api.domain.User;
+import com.bookhaven.api.dtos.UserDto;
 import com.bookhaven.api.services.UserService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -24,6 +23,14 @@ public class UserResource {
 
     public UserResource(UserService userService) {
         this.userService = userService;
+    }
+
+    @GetMapping("/currentUser")
+    private ResponseEntity<UserDto> getCurrentUser(HttpServletRequest request){
+        int userId = (Integer) request.getAttribute("userId");
+        UserDto user = userService.getUserById(userId);
+
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     @PostMapping("/login")
