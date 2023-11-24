@@ -35,7 +35,7 @@ public class BookHavenApiApplication {
         FilterRegistrationBean<AuthFilter> registrationBean = new FilterRegistrationBean<>();
         AuthFilter authFilter = new AuthFilter();
         registrationBean.setFilter(authFilter);
-        registrationBean.addUrlPatterns("/api/books/*", "/api/library/*");
+        registrationBean.addUrlPatterns("/api/books/*", "/api/library/*", "/api/users/currentUser");
         return registrationBean;
     }
 
