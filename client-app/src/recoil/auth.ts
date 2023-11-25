@@ -1,5 +1,6 @@
 import { User } from "@/@types/User"
 import { atom, selector } from "recoil"
+import { API } from "@/constants/api"
 
 export const jwtTokenAtom = atom<string | null>({
     key: "jwtToken",
@@ -19,17 +20,20 @@ export const jwtTokenAtom = atom<string | null>({
 
 export const currentUser = selector<User | null>({
     key: "CurrentUser",
-    get: ({ get }) => {
+    get: async ({ get }) => {
         const token = get(jwtTokenAtom)
         if (!token) return null
-        // fetch user based on token
-        return {
-            userId: 1,
-            firstName: "prashant",
-            lastName: "joshi",
-            email: "bob@bob.com",
-            isAdmin: false,
-            dateJoined: 129821903,
+        let user: User | null = null
+        try {
+            const response = await API.get("/users/currentUser", {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            })
+            user = response.data as User
+        } catch (e) {
+            console.log("Error: ", e)
         }
+        return user
     },
 })
