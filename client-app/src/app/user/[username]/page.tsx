@@ -1,16 +1,27 @@
+"use client"
+
 import { EditProfileButton } from "@/components/EditProfileButton/EditProfileButton"
 import { LocationPinIcon } from "@/icons/LocationPinIcon"
 import { MailIcon } from "@/icons/MailIcon"
-import { Box, Text, HStack, VStack, Heading } from "@chakra-ui/react"
+import { currentUser } from "@/recoil/auth"
+import { Box, Center, HStack, Heading, Text, VStack } from "@chakra-ui/react"
+import { useRecoilValue } from "recoil"
 
-export default function ProfilePage({ params }: { params: { username: string } }) {
+export default function ProfilePage() {
+    const user = useRecoilValue(currentUser)
+    if (!user) {
+        return <Center>No user had logged in</Center>
+    }
+
     return (
         <Box as="section" w="full">
             <HStack align="start" spacing={4}>
                 <VStack borderRadius={16} bg="gray.100" p={6} w="20vw" align="start" shadow="lg">
                     <Box h="52" w="52" borderRadius="full" bg="gray.500" mx="auto" mb={4}></Box>
-                    <Heading size="lg">Prashant Joshi</Heading>
-                    <Text color="purple.500">{params.username}</Text>
+                    <Heading size="lg">
+                        {user?.firstName} {user?.lastName}
+                    </Heading>
+                    <Text color="purple.500">@currentUser</Text>
                     <VStack align="start" spacing="-4">
                         <Text fontWeight="bold">About ME</Text>
                         <Text fontSize="14">
@@ -25,7 +36,7 @@ export default function ProfilePage({ params }: { params: { username: string } }
                     </HStack>
                     <HStack spacing={2}>
                         <MailIcon size={18} />
-                        <Text fontSize="14">bob@bob.com</Text>
+                        <Text fontSize="14">{user?.email}</Text>
                     </HStack>
                     <EditProfileButton />
                 </VStack>
