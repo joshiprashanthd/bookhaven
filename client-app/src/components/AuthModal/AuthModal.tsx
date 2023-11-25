@@ -1,3 +1,5 @@
+"use client"
+
 import { jwtTokenAtom } from "@/recoil/auth"
 import { Modal, ModalCloseButton, ModalContent, ModalOverlay } from "@chakra-ui/react"
 import { useEffect, useState } from "react"

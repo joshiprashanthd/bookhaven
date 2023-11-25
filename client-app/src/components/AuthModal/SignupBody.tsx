@@ -1,4 +1,6 @@
-import { AxiosContext } from "@/contexts/AxiosContext"
+"use client"
+
+import { API } from "@/constants/api"
 import { jwtTokenAtom } from "@/recoil/auth"
 import {
     Button,
@@ -13,12 +15,11 @@ import {
     Text,
     VStack,
 } from "@chakra-ui/react"
-import { useContext, useState } from "react"
+import { useState } from "react"
 import { useSetRecoilState } from "recoil"
 
 export const SignupBody = ({ setState }: { setState: (state: "login" | "signup") => void }) => {
     const setJwtToken = useSetRecoilState(jwtTokenAtom)
-    const api = useContext(AxiosContext)
     const [errorMessage, setErrorMessage] = useState("")
     const [loading, setLoading] = useState(false)
     const [formState, setFormState] = useState({
@@ -32,7 +33,7 @@ export const SignupBody = ({ setState }: { setState: (state: "login" | "signup")
         setErrorMessage("")
         setLoading(true)
         try {
-            const response = await api.post("/users/register", formState)
+            const response = await API.post("/users/register", formState)
             setJwtToken(response.data.token)
         } catch (error: any) {
             setErrorMessage((prev) => error.response.data.message)

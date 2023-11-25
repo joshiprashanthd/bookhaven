@@ -1,7 +1,7 @@
 "use client"
 
-import { AxiosContext } from "@/contexts/AxiosContext"
 import { jwtTokenAtom } from "@/recoil/auth"
+import { API } from "@/constants/api"
 import {
     Button,
     FormControl,
@@ -15,11 +15,10 @@ import {
     Text,
     VStack,
 } from "@chakra-ui/react"
-import React, { useContext, useState } from "react"
+import React, { useState } from "react"
 import { useSetRecoilState } from "recoil"
 
 export const LoginBody = ({ setState }: { setState: (state: "login" | "signup") => void }) => {
-    const api = useContext(AxiosContext)
     const setJwtToken = useSetRecoilState(jwtTokenAtom)
     const [errorMessage, setErrorMessage] = useState("")
     const [loading, setLoading] = useState(false)
@@ -38,7 +37,7 @@ export const LoginBody = ({ setState }: { setState: (state: "login" | "signup") 
         setErrorMessage("")
         setLoading(true)
         try {
-            const response = await api.post("/users/login", formState)
+            const response = await API.post("/users/login", formState)
             setJwtToken(response.data.token)
         } catch (error: any) {
             setErrorMessage("Invalid email or password")
