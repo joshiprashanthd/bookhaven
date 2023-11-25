@@ -26,7 +26,7 @@ def login_as_admin():
     return token
 
 
-def make_add_book_request(token, title, subtitle, authors, genre, description, publishedYear, numPages, imageUrl):
+def make_add_book_request(token, title, subtitle, authors, genre, description, publishedYear, numPages, imageUrl, avgRating, ratingsCount):
     book = {
         'title': title,
         'authors': authors,
@@ -34,7 +34,9 @@ def make_add_book_request(token, title, subtitle, authors, genre, description, p
         'description': description,
         'publishedYear': publishedYear,
         'imageUrl': imageUrl,
-        'numPages': numPages
+        'numPages': numPages,
+        'averageRating': avgRating,
+        'ratingsCount': ratingsCount
     }
     if subtitle != '':
         book['subtitle'] = subtitle
@@ -65,7 +67,10 @@ def main():
                 description=row[7],
                 publishedYear=int(row[8]),
                 numPages=int(row[10]),
-                imageUrl=row[6])
+                imageUrl=row[6],
+                avgRating=float(row[9]),
+                ratingsCount=int(row[11]))
+
             if success:
                 add_cnt += 1
 
