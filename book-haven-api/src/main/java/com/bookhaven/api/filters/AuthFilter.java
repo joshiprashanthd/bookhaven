@@ -26,6 +26,7 @@ public class AuthFilter extends GenericFilterBean {
         String requestMethod = httpRequest.getMethod();
         String authHeader = httpRequest.getHeader("Authorization");
 
+        // ignoring some GET urls from auth
         List<String> ignoreAuthUrls = new ArrayList<>();
         ignoreAuthUrls.add("/api/books");
         ignoreAuthUrls.add("/api/library/user");
@@ -43,6 +44,7 @@ public class AuthFilter extends GenericFilterBean {
             return;
         }
 
+        // check if bearer token is present and then add a claim if present and pass it to the next middleware.
         if(authHeader != null){
             String[] authHeaderArr = authHeader.split("Bearer");
             if(authHeaderArr.length > 1 && authHeaderArr[1] != null){
@@ -61,6 +63,7 @@ public class AuthFilter extends GenericFilterBean {
                     return;
                 }
             }
+            // else send forbidden error.
             else {
                 httpResponse.sendError(HttpStatus.FORBIDDEN.value(), "Authorization token must be Bearer [token]");
                 return;
