@@ -12,8 +12,22 @@ public class Book {
     private Long publishedYear;
     private Integer numPages;
     private String imageUrl;
+    private Double averageRating;
+    private Long ratingsCount;
 
-    public Book(Integer bookId, String title, String subtitle, String genre, String authors, String description, Long publishedYear, Integer numPages, String imageUrl) {
+    public Book(
+            Integer bookId,
+            String title,
+            String subtitle,
+            String genre,
+            String authors,
+            String description,
+            Long publishedYear,
+            Integer numPages,
+            String imageUrl,
+            Double averageRating,
+            Long ratingsCount
+    ) {
         this.bookId = bookId;
         this.title = title;
         this.subtitle = subtitle;
@@ -23,6 +37,8 @@ public class Book {
         this.publishedYear = publishedYear;
         this.numPages = numPages;
         this.imageUrl = imageUrl;
+        this.averageRating = averageRating;
+        this.ratingsCount = ratingsCount;
     }
 
     public Integer getNumPages() {
@@ -95,5 +111,21 @@ public class Book {
 
     public void setGenre(String genre) {
         this.genre = genre;
+    }
+
+    public Double getAverageRating() {
+        return averageRating;
+    }
+
+    public void setAverageRating(Double averageRating) {
+        this.averageRating = averageRating;
+    }
+
+    public Long getRatingsCount() {
+        return ratingsCount;
+    }
+
+    public void setRatingsCount(Long ratingsCount) {
+        this.ratingsCount = ratingsCount;
     }
 }

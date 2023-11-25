@@ -11,9 +11,9 @@ import java.util.List;
 public interface BookService {
 
     // region Books
-    List<Book> fetchAllBooks(String title, Long startYear, Long endYear, String genre);
+    List<Book> fetchAllBooks(String title, Long startYear, Long endYear, String genre, Integer numRecords);
     Book fetchBookById(Integer bookId) throws BhResourceNotFoundException;
-    Book addBook(String title, String subtitle, String authors, String genre, String description, Long publishedYear, Integer numPages, String imageUrl) throws BhBadRequestException;
+    Book addBook(String title, String subtitle, String authors, String genre, String description, Long publishedYear, Integer numPages, String imageUrl, Double averageRating, Long ratingsCount) throws BhBadRequestException;
     void updateBook(Integer bookId, Book book) throws BhBadRequestException;
     // endregion Books
 

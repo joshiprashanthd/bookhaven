@@ -6,13 +6,15 @@ public class BookReview {
     private Integer userId;
     private Double rating;
     private String reviewText;
+    private Long reviewDatetime;
 
-    public BookReview(Long bookReviewId, Integer bookId, Integer userId, Double rating, String reviewText) {
+    public BookReview(Long bookReviewId, Integer bookId, Integer userId, Double rating, String reviewText, Long reviewDatetime) {
         this.bookReviewId = bookReviewId;
         this.bookId = bookId;
         this.userId = userId;
         this.rating = rating;
         this.reviewText = reviewText;
+        this.reviewDatetime = reviewDatetime;
     }
 
     public Long getBookReviewId() {
@@ -53,5 +55,13 @@ public class BookReview {
 
     public void setReviewText(String reviewText) {
         this.reviewText = reviewText;
+    }
+
+    public Long getReviewDatetime() {
+        return reviewDatetime;
+    }
+
+    public void setReviewDatetime(Long reviewDatetime) {
+        this.reviewDatetime = reviewDatetime;
     }
 }

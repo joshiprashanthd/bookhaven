@@ -27,6 +27,12 @@ public class LibraryResource {
         return new ResponseEntity<>(books, HttpStatus.OK);
     }
 
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<UserBookDetails>> fetchUserLibrary(@PathVariable Integer userId){
+        List<UserBookDetails> books = bookService.fetchUserLibrary(userId);
+        return new ResponseEntity<>(books, HttpStatus.OK);
+    }
+
     @PostMapping("")
     public ResponseEntity<UserBookDetails> addBookToUserLibrary(HttpServletRequest request,
                                                                 @RequestBody Map<String, Object> bodyMap){

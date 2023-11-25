@@ -28,8 +28,9 @@ public class BookResource {
     public ResponseEntity<List<Book>> getAllBooks(@RequestParam(value = "title", required = false) String bookTitle,
                                                   @RequestParam(value = "startYear", required = false) Long yearStart,
                                                   @RequestParam(value = "endYear", required = false) Long yearEnd,
-                                                  @RequestParam(value = "genre", required = false) String genre){
-        List<Book> books = bookService.fetchAllBooks(bookTitle, yearStart, yearEnd, genre);
+                                                  @RequestParam(value = "genre", required = false) String genre,
+                                                  @RequestParam(value = "num_records", required = false, defaultValue = "20") Integer numRecords){
+        List<Book> books = bookService.fetchAllBooks(bookTitle, yearStart, yearEnd, genre, numRecords);
         return new ResponseEntity<>(books, HttpStatus.OK);
     }
 
@@ -52,13 +53,15 @@ public class BookResource {
         Integer publishedYear = (Integer) bookMap.get("publishedYear");
         Integer numPages = (Integer) bookMap.get("numPages");
         String imageUrl = (String) bookMap.get("imageUrl");
-        Book book = bookService.addBook(title, subtitle, authors, genre, description, Long.valueOf(publishedYear), numPages, imageUrl);
+        Double averageRating = (Double) bookMap.get("averageRating");
+        Integer ratingsCount = (Integer) bookMap.get("ratingsCount");
+        Book book = bookService.addBook(title, subtitle, authors, genre, description, Long.valueOf(publishedYear), numPages, imageUrl, averageRating, Long.valueOf(ratingsCount));
         return new ResponseEntity<>(book, HttpStatus.CREATED);
     }
 
     @PutMapping("/{bookId}")
     public ResponseEntity<Map<String, Boolean>> updateBook(@PathVariable("bookId") Integer bookId,
-                                                               @RequestBody Book book) {
+                                                           @RequestBody Book book) {
         bookService.updateBook(bookId, book);
         Map<String, Boolean> map = new HashMap<>();
         map.put("success", true);
@@ -82,9 +85,9 @@ public class BookResource {
                                                     @PathVariable("bookId") Integer bookId,
                                                     @RequestBody Map<String, Object> reviewMap){
         int userId = (Integer) request.getAttribute("userId");
-        Double rating = (Double) reviewMap.get("rating");
+        Integer rating = (Integer) reviewMap.get("rating");
         String reviewText = (String) reviewMap.get("reviewText");
-        BookReview createdReview = bookService.createBookReview(userId, bookId, rating, reviewText);
+        BookReview createdReview = bookService.createBookReview(userId, bookId, Double.valueOf(rating), reviewText);
 
         return new ResponseEntity<>(createdReview, HttpStatus.CREATED);
     }

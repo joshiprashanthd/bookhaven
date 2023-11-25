@@ -14,20 +14,21 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
 import java.sql.Statement;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
 @Repository
 public class BookRepositoryImpl implements BookRepository{
 
-    private static final String SQL_FIND_ALL = "SELECT BOOK_ID, TITLE, SUBTITLE, GENRE, AUTHORS, DESCRIPTION, PUBLISHED_YEAR, NUM_PAGES, IMAGE_URL" +
+    private static final String SQL_FIND_ALL = "SELECT BOOK_ID, TITLE, SUBTITLE, GENRE, AUTHORS, DESCRIPTION, PUBLISHED_YEAR, NUM_PAGES, IMAGE_URL, AVERAGE_RATING, RATINGS_COUNT" +
             " FROM BH_BOOKS";
-    private static final String SQL_FIND_BY_ID = "SELECT BOOK_ID, TITLE, SUBTITLE, GENRE, AUTHORS, DESCRIPTION, PUBLISHED_YEAR, NUM_PAGES, IMAGE_URL" +
+    private static final String SQL_FIND_BY_ID = "SELECT BOOK_ID, TITLE, SUBTITLE, GENRE, AUTHORS, DESCRIPTION, PUBLISHED_YEAR, NUM_PAGES, IMAGE_URL, AVERAGE_RATING, RATINGS_COUNT" +
             " FROM BH_BOOKS WHERE BOOK_ID = ?";
-    private static final String SQL_CREATE = "INSERT INTO BH_BOOKS (BOOK_ID, TITLE, SUBTITLE, AUTHORS, GENRE, DESCRIPTION, PUBLISHED_YEAR, NUM_PAGES," +
-            "IMAGE_URL) VALUES(NEXTVAL('BH_BOOKS_SEQ'), ?, ?, ?, ?, ?, ?, ?, ?)";
+    private static final String SQL_CREATE = "INSERT INTO BH_BOOKS (BOOK_ID, TITLE, SUBTITLE, AUTHORS, GENRE, DESCRIPTION, PUBLISHED_YEAR, NUM_PAGES, " +
+            "IMAGE_URL, AVERAGE_RATING, RATINGS_COUNT) VALUES(NEXTVAL('BH_BOOKS_SEQ'), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-    private static final String SQL_UPDATE = "UPDATE BH_BOOKS SET TITLE = ?, SUBTITLE = ?, AUTHORS = ?, GENRE = ?, DESCRIPTION = ?, PUBLISHED_YEAR = ?, NUM_PAGES = ?" +
+    private static final String SQL_UPDATE = "UPDATE BH_BOOKS SET TITLE = ?, SUBTITLE = ?, AUTHORS = ?, GENRE = ?, DESCRIPTION = ?, PUBLISHED_YEAR = ?, NUM_PAGES = ?, AVERAGE_RATING = ?, RATINGS_COUNT = ?" +
             ", IMAGE_URL = ? WHERE BOOK_ID = ?";
 
     private static final String SQL_BOOK_LIBRARY_ADD = "INSERT INTO BH_USER_LIBRARIES (USER_LIBRARY_ID, USER_ID, BOOK_ID, HAS_READ, BOOKMARKED) " +
@@ -41,12 +42,12 @@ public class BookRepositoryImpl implements BookRepository{
 
     private static final String SQL_DELETE_USER_LIBRARY_BOOK = "DELETE FROM BH_USER_LIBRARIES WHERE USER_ID = ? AND BOOK_ID = ?";
 
-    private static final String SQL_FIND_ALL_BOOK_REVIEWS = "SELECT BOOK_REVIEW_ID, BOOK_ID, USER_ID, RATING, REVIEW_TEXT FROM BH_BOOK_REVIEWS WHERE BOOK_ID = ?";
+    private static final String SQL_FIND_ALL_BOOK_REVIEWS = "SELECT BOOK_REVIEW_ID, BOOK_ID, USER_ID, RATING, REVIEW_TEXT, REVIEW_DATETIME FROM BH_BOOK_REVIEWS WHERE BOOK_ID = ?";
 
-    private static final String SQL_FIND_BY_ID_BOOK_REVIEW = "SELECT BOOK_REVIEW_ID, BOOK_ID, USER_ID, RATING, REVIEW_TEXT FROM BH_BOOK_REVIEWS WHERE BOOK_REVIEW_ID = ?";
+    private static final String SQL_FIND_BY_ID_BOOK_REVIEW = "SELECT BOOK_REVIEW_ID, BOOK_ID, USER_ID, RATING, REVIEW_TEXT, REVIEW_DATETIME FROM BH_BOOK_REVIEWS WHERE BOOK_REVIEW_ID = ?";
 
-    private static final String SQL_CREATE_BOOK_REVIEW = "INSERT INTO BH_BOOK_REVIEWS(BOOK_REVIEW_ID, BOOK_ID, USER_ID, RATING, REVIEW_TEXT)" +
-            " VALUES(NEXTVAL('BH_BOOK_REVIEWS_SEQ'), ?, ?, ?, ?)";
+    private static final String SQL_CREATE_BOOK_REVIEW = "INSERT INTO BH_BOOK_REVIEWS(BOOK_REVIEW_ID, BOOK_ID, USER_ID, RATING, REVIEW_TEXT, REVIEW_DATETIME)" +
+            " VALUES(NEXTVAL('BH_BOOK_REVIEWS_SEQ'), ?, ?, ?, ?, ?)";
 
     private static final String SQL_UPDATE_BOOK_REVIEW = "UPDATE BH_BOOK_REVIEWS SET RATING = ?, REVIEW_TEXT = ? WHERE BOOK_REVIEW_ID = ?";
 
@@ -60,7 +61,7 @@ public class BookRepositoryImpl implements BookRepository{
     }
 
     @Override
-    public List<Book> findAll(String title, Long startYear, Long endYear, String genre) throws BhResourceNotFoundException {
+    public List<Book> findAll(String title, Long startYear, Long endYear, String genre, Integer numRecords) throws BhResourceNotFoundException {
         List<String> conditions = new ArrayList<>();
         List<Object> params = new ArrayList<>();
         if(title != null){
@@ -75,7 +76,7 @@ public class BookRepositoryImpl implements BookRepository{
             conditions.add("PUBLISHED_YEAR >= ?");
             params.add(startYear);
         }
-        if(endYear != null){
+        if(endYear != null) {
             conditions.add("PUBLISHED_YEAR <= ?");
             params.add(endYear);
         }
@@ -84,6 +85,7 @@ public class BookRepositoryImpl implements BookRepository{
             modifiedSQL = SQL_FIND_ALL + " WHERE " + String.join(" AND ", conditions);
         }
 
+        modifiedSQL += " ORDER BY AVERAGE_RATING DESC LIMIT " + numRecords;
         return jdbcTemplate.query(modifiedSQL, bookRowMapper, params.toArray());
     }
 
@@ -97,7 +99,7 @@ public class BookRepositoryImpl implements BookRepository{
     }
 
     @Override
-    public Integer create(String title, String subtitle, String authors, String genre, String description, Long publishedYear, Integer numPages, String imageUrl) throws BhBadRequestException {
+    public Integer create(String title, String subtitle, String authors, String genre, String description, Long publishedYear, Integer numPages, String imageUrl, Double averageRating, Long ratingsCount) throws BhBadRequestException {
         try {
             KeyHolder keyHolder = new GeneratedKeyHolder();
             jdbcTemplate.update(connection -> {
@@ -110,6 +112,8 @@ public class BookRepositoryImpl implements BookRepository{
                 ps.setLong(6, publishedYear);
                 ps.setInt(7, numPages);
                 ps.setString(8, imageUrl);
+                ps.setDouble(9, Math.round(averageRating));
+                ps.setLong(10, ratingsCount);
                 return ps;
             }, keyHolder);
             return (Integer) keyHolder.getKeys().get("BOOK_ID");
@@ -121,7 +125,7 @@ public class BookRepositoryImpl implements BookRepository{
     @Override
     public void update(Integer bookId, Book book) throws BhBadRequestException {
         try{
-            jdbcTemplate.update(SQL_UPDATE, new Object[]{book.getTitle(), book.getSubtitle(), book.getAuthors(), book.getGenre(), book.getDescription(), book.getPublishedYear(), book.getImageUrl(), bookId});
+            jdbcTemplate.update(SQL_UPDATE, new Object[]{book.getTitle(), book.getSubtitle(), book.getAuthors(), book.getGenre(), book.getDescription(), book.getPublishedYear(), book.getAverageRating(), book.getRatingsCount(), book.getImageUrl(), bookId});
         }catch (Exception e){
             throw new BhBadRequestException("Invalid request");
         }
@@ -192,6 +196,7 @@ public class BookRepositoryImpl implements BookRepository{
                 ps.setInt(2, userId);
                 ps.setDouble(3, Math.round(rating));
                 ps.setString(4, reviewText);
+                ps.setLong(5, Instant.now().toEpochMilli());
                 return ps;
             }, keyHolder);
             return (Long) keyHolder.getKeys().get("BOOK_REVIEW_ID");
@@ -224,7 +229,10 @@ public class BookRepositoryImpl implements BookRepository{
                 rs.getString("DESCRIPTION"),
                 rs.getLong("PUBLISHED_YEAR"),
                 rs.getInt("NUM_PAGES"),
-                rs.getString("IMAGE_URL"));
+                rs.getString("IMAGE_URL"),
+                rs.getDouble("AVERAGE_RATING"),
+                rs.getLong("RATINGS_COUNT")
+        );
     });
 
     private RowMapper<UserBookDetails> userLibraryBookDetailsRowMapper = ((rs, rowNum) -> {
@@ -235,13 +243,14 @@ public class BookRepositoryImpl implements BookRepository{
     });
 
     private RowMapper<BookReview> bookReviewRowMapper = ((rs, rowNum) -> {
-       return new BookReview(
-               rs.getLong("BOOK_REVIEW_ID"),
-               rs.getInt("BOOK_ID"),
-               rs.getInt("USER_ID"),
-               rs.getDouble("RATING"),
-               rs.getString("REVIEW_TEXT")
-       );
+        return new BookReview(
+                rs.getLong("BOOK_REVIEW_ID"),
+                rs.getInt("BOOK_ID"),
+                rs.getInt("USER_ID"),
+                rs.getDouble("RATING"),
+                rs.getString("REVIEW_TEXT"),
+                rs.getLong("REVIEW_DATETIME")
+        );
     });
 
     public static double round(double value, int places) {
