@@ -21,7 +21,7 @@ public class BookHavenApiApplication {
         FilterRegistrationBean<CorsFilter> registrationBean = new FilterRegistrationBean<>();
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
-        config.addAllowedOrigin("http://localhost:3000");
+        config.addAllowedOrigin("http://localhost:3001");
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
         source.registerCorsConfiguration("/**", config);

@@ -11,4 +11,6 @@ public interface UserRepository {
     Integer getCountByEmail(String email);
 
     User findById(Integer userId);
+
+    User updateUserDetails(Integer userId, String firstName, String lastName, String aboutMe);
 }

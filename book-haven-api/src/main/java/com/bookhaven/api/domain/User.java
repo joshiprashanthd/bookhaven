@@ -8,8 +8,9 @@ public class User {
     private String password;
     private Boolean isAdmin;
     private Long dateJoined;
+    private String aboutMe;
 
-    public User(Integer userId, String firstName, String lastName, String email, String password, Boolean isAdmin, Long dateJoined) {
+    public User(Integer userId, String firstName, String lastName, String email, String password, Boolean isAdmin, Long dateJoined, String aboutMe) {
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -17,6 +18,7 @@ public class User {
         this.password = password;
         this.isAdmin = isAdmin;
         this.dateJoined = dateJoined;
+        this.aboutMe = aboutMe;
     }
 
     public Integer getUserId() {
@@ -73,5 +75,13 @@ public class User {
 
     public void setDateJoined(Long dateJoined) {
         this.dateJoined = dateJoined;
+    }
+
+    public String getAboutMe() {
+        return aboutMe;
+    }
+
+    public void setAboutMe(String aboutMe) {
+        this.aboutMe = aboutMe;
     }
 }

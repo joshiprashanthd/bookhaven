@@ -49,7 +49,23 @@ public class UserServiceImpl implements UserService{
                 user.getLastName(),
                 user.getEmail(),
                 user.getAdmin(),
-                user.getDateJoined()
+                user.getDateJoined(),
+                user.getAboutMe()
+        );
+    }
+
+    @Override
+    public UserDto updateUserDetails(Integer userId, String firstName, String lastName, String aboutMe) {
+        User user = userRepository.updateUserDetails(userId, firstName, lastName, aboutMe);
+
+        return new UserDto(
+                user.getUserId(),
+                user.getFirstName(),
+                user.getLastName(),
+                user.getEmail(),
+                user.getAdmin(),
+                user.getDateJoined(),
+                user.getAboutMe()
         );
     }
 }

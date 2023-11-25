@@ -13,6 +13,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.filter.GenericFilterBean;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AuthFilter extends GenericFilterBean {
     @Override
@@ -23,6 +25,24 @@ public class AuthFilter extends GenericFilterBean {
         String requestUri = httpRequest.getRequestURI();
         String requestMethod = httpRequest.getMethod();
         String authHeader = httpRequest.getHeader("Authorization");
+
+        List<String> ignoreAuthUrls = new ArrayList<>();
+        ignoreAuthUrls.add("/api/books");
+        ignoreAuthUrls.add("/api/library/user");
+
+        boolean contains = false;
+        for(String url : ignoreAuthUrls){
+            if (requestUri.startsWith(url)) {
+                contains = true;
+                break;
+            }
+        }
+
+        if(contains && requestMethod.equals("GET")){
+            filterChain.doFilter(servletRequest, servletResponse);
+            return;
+        }
+
         if(authHeader != null){
             String[] authHeaderArr = authHeader.split("Bearer");
             if(authHeaderArr.length > 1 && authHeaderArr[1] != null){
@@ -45,7 +65,8 @@ public class AuthFilter extends GenericFilterBean {
                 httpResponse.sendError(HttpStatus.FORBIDDEN.value(), "Authorization token must be Bearer [token]");
                 return;
             }
-        } else {
+        }
+        else {
             httpResponse.sendError(HttpStatus.FORBIDDEN.value(), "Authorization token must be provided");
             return;
         }

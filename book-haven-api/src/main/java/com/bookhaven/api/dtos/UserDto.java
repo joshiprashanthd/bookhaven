@@ -7,14 +7,16 @@ public class UserDto {
     private String email;
     private Boolean isAdmin;
     private Long dateJoined;
+    private String aboutMe;
 
-    public UserDto(Integer userId, String firstName, String lastName, String email, Boolean isAdmin, Long dateJoined) {
+    public UserDto(Integer userId, String firstName, String lastName, String email, Boolean isAdmin, Long dateJoined, String aboutMe) {
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.isAdmin = isAdmin;
         this.dateJoined = dateJoined;
+        this.aboutMe = aboutMe;
     }
 
     public Integer getUserId() {
@@ -63,5 +65,13 @@ public class UserDto {
 
     public void setDateJoined(Long dateJoined) {
         this.dateJoined = dateJoined;
+    }
+
+    public String getAboutMe() {
+        return aboutMe;
+    }
+
+    public void setAboutMe(String aboutMe) {
+        this.aboutMe = aboutMe;
     }
 }

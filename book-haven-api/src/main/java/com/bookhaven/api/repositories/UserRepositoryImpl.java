@@ -2,6 +2,7 @@ package com.bookhaven.api.repositories;
 
 import com.bookhaven.api.domain.User;
 import com.bookhaven.api.exceptions.BhAuthException;
+import com.bookhaven.api.exceptions.BhBadRequestException;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -20,10 +21,12 @@ public class UserRepositoryImpl implements UserRepository{
     private static final String SQL_CREATE = "INSERT INTO BH_USERS(USER_ID, FIRST_NAME, LAST_NAME, EMAIL, IS_ADMIN, DATE_JOINED," +
             "PASSWORD) VALUES(NEXTVAL('BH_USERS_SEQ'), ?, ?, ?, ?, ?, ?)";
     private static final String SQL_COUNT_BY_EMAIL = "SELECT COUNT(*) FROM BH_USERS WHERE EMAIL = ?";
-    private static final String SQL_FIND_BY_ID = "SELECT USER_ID, FIRST_NAME, LAST_NAME, EMAIL, IS_ADMIN, DATE_JOINED, PASSWORD " +
+    private static final String SQL_FIND_BY_ID = "SELECT USER_ID, FIRST_NAME, LAST_NAME, EMAIL, IS_ADMIN, DATE_JOINED, PASSWORD, ABOUT_ME " +
             "FROM BH_USERS WHERE USER_ID = ?";
-    private static final String SQL_FIND_BY_EMAIl = "SELECT USER_ID, FIRST_NAME, LAST_NAME, EMAIL, IS_ADMIN, DATE_JOINED, PASSWORD " +
+    private static final String SQL_FIND_BY_EMAIl = "SELECT USER_ID, FIRST_NAME, LAST_NAME, EMAIL, IS_ADMIN, DATE_JOINED, PASSWORD, ABOUT_ME " +
             "FROM BH_USERS WHERE EMAIl = ?";
+
+    private static final String SQL_UPDATE = "UPDATE BH_USERS SET FIRST_NAME = ?, LAST_NAME = ?, ABOUT_ME = ? WHERE USER_ID = ?";
 
     final
     JdbcTemplate jdbcTemplate;
@@ -76,6 +79,16 @@ public class UserRepositoryImpl implements UserRepository{
         return jdbcTemplate.queryForObject(SQL_FIND_BY_ID, new Object[]{userId}, userRowMapper);
     }
 
+    @Override
+    public User updateUserDetails(Integer userId, String firstName, String lastName, String aboutMe) {
+        try{
+            jdbcTemplate.update(SQL_UPDATE, new Object[]{firstName, lastName, aboutMe, userId});
+            return findById(userId);
+        }catch (Exception e){
+            throw new BhBadRequestException("Invalid request");
+        }
+    }
+
     private RowMapper<User> userRowMapper = ((rs, rowNum) -> {
         return new User(rs.getInt("USER_ID"),
                 rs.getString("FIRST_NAME"),
@@ -83,6 +96,7 @@ public class UserRepositoryImpl implements UserRepository{
                 rs.getString("EMAIL"),
                 rs.getString("PASSWORD"),
                 rs.getBoolean("IS_ADMIN"),
-                rs.getLong("DATE_JOINED"));
+                rs.getLong("DATE_JOINED"),
+                rs.getString("ABOUT_ME"));
     });
 }

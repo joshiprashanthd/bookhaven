@@ -11,12 +11,13 @@ import java.util.List;
 public interface BookRepository {
 
     // region Books
-    List<Book> findAll(String title, Long startYear, Long endYear, String genre) throws BhResourceNotFoundException;
+    List<Book> findAll(String title, Long startYear, Long endYear, String genre, Integer numRecords) throws BhResourceNotFoundException;
 
     Book findById(Integer bookId) throws BhResourceNotFoundException;
 
     Integer create(String title, String subtitle, String authors, String genre,
-                   String description, Long publishedYear, Integer numPages, String imageUrl)
+                   String description, Long publishedYear, Integer numPages, String imageUrl,
+                   Double averageRating, Long ratingsCount)
             throws BhBadRequestException;
 
     void update(Integer bookId, Book book) throws BhBadRequestException;

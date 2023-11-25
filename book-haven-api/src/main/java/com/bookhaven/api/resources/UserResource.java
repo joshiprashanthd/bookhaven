@@ -33,6 +33,23 @@ public class UserResource {
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
+    @GetMapping("/{userId}")
+    private ResponseEntity<UserDto> getUserDetailsById(@PathVariable int userId){
+        UserDto user = userService.getUserById(userId);
+
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
+    @PutMapping("/{userId}")
+    private ResponseEntity<UserDto> updateUserDetails(@PathVariable int userId, @RequestBody Map<String, Object> userMap){
+        String firstName = (String) userMap.get("firstName");
+        String lastName = (String) userMap.get("lastName");
+        String aboutMe = (String) userMap.get("aboutMe");
+
+        UserDto userDto = userService.updateUserDetails(userId, firstName, lastName, aboutMe);
+        return new ResponseEntity<>(userDto, HttpStatus.OK);
+    }
+
     @PostMapping("/login")
     public ResponseEntity<Map<String, String>> loginUser(@RequestBody Map<String, Object> userMap){
         String email = (String) userMap.get("email");
