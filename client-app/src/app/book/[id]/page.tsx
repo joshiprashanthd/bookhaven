@@ -1,9 +1,9 @@
 import { Book } from "@/@types/Book"
+import { Review } from "@/components/Review/Review"
 import { LibraryIcon } from "@/icons/LibraryIcon"
 import {
     Box,
     Button,
-    Divider,
     Flex,
     HStack,
     Heading,
@@ -65,9 +65,16 @@ function DescriptionTabPanel({}: {}) {
                     </Text>
                     <Text>American Fiction</Text>
                 </VStack>
+                <VStack flex="1">
+                    <Text fontSize={14} fontWeight="bold" color="purple.600" mb={-2}>
+                        Rating
+                    </Text>
+                    <Text>{4.67}</Text>
+                </VStack>
             </HStack>
             <Box w="full">
                 <Heading mb={4}>Give a review</Heading>
+                
                 <Textarea
                     bg="gray.50"
                     variant="filled"
@@ -89,8 +96,7 @@ function DescriptionTabPanel({}: {}) {
 function ReviewsTabPanel() {
     return (
         <TabPanel w="full">
-            <Text>Reviews</Text>
-            <Box w="full"></Box>
+            <Review />
         </TabPanel>
     )
 }
