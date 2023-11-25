@@ -1,4 +1,7 @@
+"use client"
+
 import { Book } from "@/@types/Book"
+import StarRating from "@/components/Rating/Rating"
 import { Review } from "@/components/Review/Review"
 import { LibraryIcon } from "@/icons/LibraryIcon"
 import {
@@ -17,6 +20,7 @@ import {
     Textarea,
     VStack,
 } from "@chakra-ui/react"
+import { useState } from "react"
 
 function DescriptionTabPanel({}: {}) {
     return (
@@ -72,24 +76,33 @@ function DescriptionTabPanel({}: {}) {
                     <Text>{4.67}</Text>
                 </VStack>
             </HStack>
-            <Box w="full">
-                <Heading mb={4}>Give a review</Heading>
-                
-                <Textarea
-                    bg="gray.50"
-                    variant="filled"
-                    placeholder="..."
-                    borderRadius={8}
-                    maxLength={2000}
-                    h="40"
-                    w="full"
-                    mb={2}
-                />
-                <Flex align="center" justify="end">
-                    <Button>Submit</Button>
-                </Flex>
-            </Box>
+            <GiveReview />
         </TabPanel>
+    )
+}
+
+function GiveReview() {
+    const [rating, setRating] = useState<number>(0)
+
+    return (
+        <Box w="full">
+            <Heading mb={2}>Give a review</Heading>
+            <StarRating rating={rating} setRating={setRating} />
+            <Textarea
+                bg="gray.50"
+                variant="filled"
+                placeholder="Give your review about this book..."
+                borderRadius={8}
+                maxLength={2000}
+                h="40"
+                w="full"
+                fontSize={14}
+                mb={2}
+            />
+            <Flex align="center" justify="end">
+                <Button>Submit</Button>
+            </Flex>
+        </Box>
     )
 }
 
@@ -121,7 +134,7 @@ export default function Book({ params }: { params: { id: string } }) {
                         </HStack>
                     </Button>
                 </VStack>
-                <Tabs isFitted w="full">
+                <Tabs isFitted>
                     <VStack
                         flex="1"
                         bg="gray.100"
